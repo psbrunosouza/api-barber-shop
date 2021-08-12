@@ -1,11 +1,13 @@
 import UserController from '@modules/user.controller';
+import { ensureAutheticate } from '@shared/auth';
 import Router from 'express';
 
 const UserRoutes = Router();
 
-UserRoutes.get('/', UserController.list);
 UserRoutes.post('/', UserController.create);
-UserRoutes.put('/:id');
-UserRoutes.delete('/:id');
+
+UserRoutes.get('/', ensureAutheticate, UserController.list);
+UserRoutes.put('/:id', ensureAutheticate);
+UserRoutes.delete('/:id', ensureAutheticate);
 
 export { UserRoutes };
