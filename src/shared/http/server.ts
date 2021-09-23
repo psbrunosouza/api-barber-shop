@@ -22,7 +22,7 @@ app.use(
     } else {
       return response.status(500).json({
         status: 500,
-        message: 'internal error server',
+        message: error.message,
       });
     }
   },

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { UserRepository } from '@shared/database/repositories/user.repository';
+import { UserRepository } from '@modules/users/typeorm/repositories/user.repository';
 import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import authConfig from '@config/auth/auth.json';

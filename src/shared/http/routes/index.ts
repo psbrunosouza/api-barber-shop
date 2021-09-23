@@ -1,6 +1,6 @@
+import { UserRoutes } from '@modules/users/routes/users.routes';
 import AuthService from '@shared/services/auth.service';
 import { Router } from 'express';
-import { UserRoutes } from './users';
 
 const routes = Router();
 
