@@ -6,7 +6,8 @@ const UserRoutes = Router();
 
 UserRoutes.post('/', UserController.create);
 UserRoutes.get('/', ensureAutheticate, UserController.list);
-UserRoutes.put('/:id', ensureAutheticate);
-UserRoutes.delete('/:id', ensureAutheticate);
+UserRoutes.get('/:id', ensureAutheticate, UserController.show);
+UserRoutes.put('/:id', ensureAutheticate, UserController.update);
+UserRoutes.delete('/:id', ensureAutheticate, UserController.delete);
 
 export { UserRoutes };
