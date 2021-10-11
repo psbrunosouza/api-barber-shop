@@ -1,5 +1,5 @@
 import UserController from '@modules/users/controllers/user.controller';
-import { ensureAutheticate } from '@shared/auth';
+import { ensureAutheticate } from '@shared/auth/index';
 import Router from 'express';
 
 const UserRoutes = Router();
