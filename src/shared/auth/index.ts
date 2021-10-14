@@ -26,6 +26,7 @@ export const ensureAutheticate = (
     const data = jwt.verify(token, authConfig.secret);
     const { id } = data as TokenPayload;
     request.userId = id;
+    request.userProfile = 'barber';
     return next();
   } catch {
     throw new AppError('User not authorized.', 401);

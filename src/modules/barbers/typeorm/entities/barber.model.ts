@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinColumn,
@@ -38,14 +39,14 @@ export class Barber {
   @Column()
   streetNumber: string;
 
-  @Column('date')
-  createdAt: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  deleted_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 
   @Column()
   userId: number;

@@ -29,10 +29,13 @@ class AuthService {
       expiresIn: 86400,
     });
 
+    const permission = 'barber';
+
     registeredUser.password = '';
 
     return response.status(200).json({
       token,
+      permission,
     });
   }
 }
