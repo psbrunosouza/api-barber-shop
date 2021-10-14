@@ -1,5 +1,5 @@
 import Router from 'express';
-import BarberController from '@modules/barbers/controllers/barber.controller';
+import BarberController from '../controllers/barber.controller';
 
 const BarbersRoutes = Router();
 
@@ -9,4 +9,4 @@ BarbersRoutes.get('/:id', BarberController.show);
 BarbersRoutes.put('/:id', BarberController.update);
 BarbersRoutes.delete('/:id', BarberController.delete);
 
-export { BarbersRoutes }
+export { BarbersRoutes };

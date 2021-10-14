@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import ListUserService from '../services/list-user.service';
 import CreateUserService from '../services/create-user.service';
-import { Users } from '../typeorm/entities/user.model';
+import { User } from '../typeorm/entities/user.model';
 import UpdateUserService from '../services/update-user.service';
 import DeleteUserService from '../services/delete-user.service';
 import ShowUserService from '../services/show-user.service';
@@ -15,7 +15,7 @@ class UserController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const userService = new CreateUserService();
-    const user = await userService.execute({ ...request.body } as Users);
+    const user = await userService.execute({ ...request.body } as User);
     return response.status(200).json(user);
   }
 
@@ -26,7 +26,7 @@ class UserController {
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const user: Users = request.body;
+    const user: User = request.body;
     const id = +request.params.id;
     const userService = new UpdateUserService();
     const userUpdated = await userService.execute({ ...user, id });
