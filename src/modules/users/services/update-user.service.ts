@@ -1,11 +1,11 @@
-import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import { Users } from '../typeorm/entities/user.model';
+import { User } from '../typeorm/entities/user.model';
 import { UserRepository } from '../typeorm/repositories/user.repository';
 import { hash } from 'bcrypt';
+import AppError from '../../../shared/errors/AppError';
 
 export default class UpdateUserService {
-  public async execute(user: Users): Promise<Users> {
+  public async execute(user: User): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
     const userExists = await userRepository.findOne({
       where: { email: user.email },

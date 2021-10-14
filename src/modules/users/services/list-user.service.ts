@@ -1,11 +1,11 @@
-import { Users } from '@modules/users/typeorm/entities/user.model';
-import { UserRepository } from '@modules/users/typeorm/repositories/user.repository';
 import { getCustomRepository } from 'typeorm';
+import { User } from '../typeorm/entities/user.model';
+import { UserRepository } from '../typeorm/repositories/user.repository';
 
 export default class ListUserService {
-  public async execute(): Promise<Users[]> {
+  public async execute(): Promise<User[]> {
     const repository = getCustomRepository(UserRepository);
-    let users = await repository.find();
+    const users = await repository.find();
     users.forEach(user => (user.password = ''));
     return users;
   }

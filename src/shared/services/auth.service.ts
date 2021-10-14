@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { UserRepository } from '@modules/users/typeorm/repositories/user.repository';
 import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import authConfig from '@config/auth/auth.json';
-import AppError from '@shared/errors/AppError';
+import { UserRepository } from '../../modules/users/typeorm/repositories/user.repository';
+import AppError from '../errors/AppError';
+import authConfig from '../../config/auth/auth.json';
 class AuthService {
   async authenticate(request: Request, response: Response) {
     const userToAutheticate = request.body;

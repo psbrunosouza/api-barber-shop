@@ -1,5 +1,5 @@
-import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
+import AppError from '../../../shared/errors/AppError';
 import { UserRepository } from '../typeorm/repositories/user.repository';
 
 export default class DeleteUserService {
