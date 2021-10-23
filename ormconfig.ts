@@ -5,7 +5,6 @@ module.exports = {
   username: 'postgres',
   password: 'postgres',
   database: 'postgres',
-  synchronize: true,
   entities: ['./src/modules/**/typeorm/entities/*.ts'],
   migrations: ['./src/shared/database/migrations/*.ts'],
   cli: {

@@ -1,12 +1,12 @@
 import Router from 'express';
-import { ensureAutheticate } from '../../../shared/auth';
+import { ensureAuthenticated } from '../../../shared/auth';
 import UserController from '../controllers/user.controller';
 const UserRoutes = Router();
 
 UserRoutes.post('/', UserController.create);
-UserRoutes.get('/', ensureAutheticate, UserController.list);
-UserRoutes.get('/:id', ensureAutheticate, UserController.show);
-UserRoutes.put('/:id', ensureAutheticate, UserController.update);
-UserRoutes.delete('/:id', ensureAutheticate, UserController.delete);
+UserRoutes.get('/', ensureAuthenticated, UserController.list);
+UserRoutes.get('/:id', ensureAuthenticated, UserController.show);
+UserRoutes.put('/:id', ensureAuthenticated, UserController.update);
+UserRoutes.delete('/:id', ensureAuthenticated, UserController.delete);
 
 export { UserRoutes };

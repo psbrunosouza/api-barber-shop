@@ -9,7 +9,8 @@ interface TokenPayload {
   exp: number;
 }
 
-export const ensureAutheticate = (
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const ensureAuthenticated = (
   request: Request,
   response: Response,
   next: NextFunction,
