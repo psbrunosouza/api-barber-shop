@@ -5,23 +5,33 @@ import jwt from 'jsonwebtoken';
 import { UserRepository } from '../../modules/users/typeorm/repositories/user.repository';
 import AppError from '../errors/AppError';
 import authConfig from '../../config/auth/auth.json';
+import { BarbersRepository } from '../../modules/barbers/typeorm/repositories/barber.repository';
 class AuthService {
   async authenticate(request: Request, response: Response) {
-    const userToAuthenticated = request.body;
+    const user = request.body;
 
     const userRepository = getCustomRepository(UserRepository);
+    const barberRepository = getCustomRepository(BarbersRepository);
 
     const registeredUser = await userRepository.findOne({
-      where: { email: userToAuthenticated.email },
+      where: { email: user.email },
     });
 
     if (!registeredUser) {
       throw new AppError("User doesn't exists", 404);
     }
 
-    if (
-      !(await compare(userToAuthenticated.password, registeredUser.password))
-    ) {
+    let barber;
+
+    if (registeredUser.profile === 'barber') {
+      barber = await barberRepository.findOne({
+        where: { userId: registeredUser.id },
+      });
+
+      if (!barber) throw new AppError("User doesn't exists", 404);
+    }
+
+    if (!(await compare(user.password, registeredUser.password))) {
       throw new AppError(
         "Email or password doesn't match. Check your credentials",
         422,
@@ -31,6 +41,7 @@ class AuthService {
     const token = jwt.sign(
       {
         user: registeredUser,
+        barberId: barber?.id,
       },
       authConfig.secret,
       {
@@ -47,6 +58,7 @@ class AuthService {
         name: registeredUser.name,
         profile: registeredUser.profile,
         email: registeredUser.email,
+        barberId: barber?.id,
       },
     });
   }

@@ -5,11 +5,13 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class createTableBarbers1633969908430 implements MigrationInterface {
+export class createTablePromotionPackages1634250648143
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'barbers',
+        name: 'packages',
         columns: [
           {
             name: 'id',
@@ -19,19 +21,8 @@ export class createTableBarbers1633969908430 implements MigrationInterface {
             isGenerated: true,
           },
           { name: 'name', type: 'varchar', isNullable: false },
-          { name: 'document', type: 'varchar', isNullable: false },
-          { name: 'email', type: 'varchar', isNullable: true, isUnique: true },
-          { name: 'zipcode', type: 'varchar', isNullable: false },
-          { name: 'street', type: 'varchar', isNullable: false },
-          { name: 'state', type: 'varchar', isNullable: false },
-          { name: 'city', type: 'varchar', isNullable: false },
-          { name: 'streetNumber', type: 'varchar', isNullable: false },
-          {
-            name: 'userId',
-            type: 'integer',
-            isNullable: false,
-            default: null,
-          },
+          { name: 'value', type: 'integer', isNullable: false },
+          { name: 'description', type: 'varchar', isNullable: false },
           {
             name: 'created_at',
             type: 'timestamp',
@@ -48,16 +39,24 @@ export class createTableBarbers1633969908430 implements MigrationInterface {
             type: 'timestamp',
             isNullable: true,
           },
+
+          {
+            name: 'barberId',
+            type: 'integer',
+            isNullable: false,
+            default: null,
+          },
         ],
       }),
     );
+
     await queryRunner.createForeignKey(
-      'barbers',
+      'packages',
       new TableForeignKey({
-        name: 'fk_userid',
-        columnNames: ['userId'],
+        name: 'fk_barberid',
+        columnNames: ['barberId'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'barbers',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
@@ -65,7 +64,7 @@ export class createTableBarbers1633969908430 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('barbers', 'fk_userid');
-    await queryRunner.dropTable('barbers');
+    await queryRunner.dropForeignKey('packages', 'fk_barberid');
+    await queryRunner.dropTable('packages');
   }
 }

@@ -1,5 +1,6 @@
 import Router from 'express';
 import BarberController from '../controllers/barber.controller';
+import PackagesController from '../../packages/controllers/packages.controller';
 import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
 import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
 
@@ -24,6 +25,13 @@ BarbersRoutes.put(
   PermissionsMiddleware,
   BarberController.update,
 );
+
+BarbersRoutes.get(
+  '/:id/packages',
+  ensureAuthenticatedMiddleware,
+  PackagesController.list,
+);
+
 BarbersRoutes.delete(
   '/:id',
   ensureAuthenticatedMiddleware,
