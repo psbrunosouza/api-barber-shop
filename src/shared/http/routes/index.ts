@@ -5,8 +5,10 @@ import { UserRoutes } from '../../../modules/users/routes/users.routes';
 
 const routes = Router();
 
-routes.post('/login', AuthService.authenticate);
-routes.use('/users', UserRoutes);
-routes.use('/barbers', BarbersRoutes);
+const version = 'v1';
+
+routes.post(`/${version}/barbershop/login`, AuthService.authenticate);
+routes.use(`/${version}/barbershop/users`, UserRoutes);
+routes.use(`/${version}/barbershop/barbers`, BarbersRoutes);
 
 export default routes;
