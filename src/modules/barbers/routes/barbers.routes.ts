@@ -27,7 +27,6 @@ BarbersRoutes.put(
 BarbersRoutes.delete(
   '/:id',
   ensureAuthenticatedMiddleware,
-  PermissionsMiddleware,
   BarberController.delete,
 );
 

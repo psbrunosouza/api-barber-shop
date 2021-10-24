@@ -32,7 +32,7 @@ class BarberController {
     const data: Barber = request.body;
     const id = +request.params.id;
     const barbersService = new UpdateBarberService();
-    const barberUpdated = barbersService.execute(
+    const barberUpdated = await barbersService.execute(
       { ...data, id },
       request as IUserLogged,
     );
@@ -42,7 +42,7 @@ class BarberController {
   async delete(request: Request, response: Response): Promise<Response> {
     const id = +request.params.id;
     const barbersService = new DeleteBarberService();
-    await barbersService.execute(id);
+    await barbersService.execute(id, request as IUserLogged);
     return response.status(200).json([]);
   }
 }

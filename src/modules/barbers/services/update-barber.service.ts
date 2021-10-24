@@ -10,15 +10,15 @@ export default class UpdateBarberService {
     barber: Barber,
     userLogged: IUserLogged,
   ): Promise<Barber> {
-    const barberRepository = getCustomRepository(BarbersRepository);
     const userRepository = getCustomRepository(UserRepository);
+    const barberRepository = getCustomRepository(BarbersRepository);
 
     const userLoggedExists = await userRepository.findOne({
       where: { email: userLogged.email },
     });
 
     const userOwnerExists = await barberRepository.findOne({
-      where: { email: barber.email },
+      where: { userId: barber.userId },
     });
 
     if (!userLoggedExists) {
@@ -34,7 +34,9 @@ export default class UpdateBarberService {
     }
 
     const barberUpdated = barberRepository.create({ ...barber });
+
     await barberRepository.save(barberUpdated);
+
     return barberUpdated;
   }
 }

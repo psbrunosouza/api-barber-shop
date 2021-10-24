@@ -1,6 +1,6 @@
 export interface IUserLogged {
-  id: number;
-  name: string;
-  email: string;
-  profile: string;
+  id: number | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  profile: string | undefined;
 }

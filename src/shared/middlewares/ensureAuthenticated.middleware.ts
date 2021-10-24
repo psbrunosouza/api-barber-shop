@@ -36,6 +36,6 @@ export const ensureAuthenticatedMiddleware = (
 
     return next();
   } catch {
-    throw new AppError('User not authorized.', 401);
+    throw new AppError('Token is expired or invalid', 401);
   }
 };
