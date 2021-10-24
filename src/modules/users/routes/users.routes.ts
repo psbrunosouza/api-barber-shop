@@ -1,12 +1,33 @@
 import Router from 'express';
-import { ensureAuthenticated } from '../../../shared/auth';
+import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
+import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
 import UserController from '../controllers/user.controller';
 const UserRoutes = Router();
 
 UserRoutes.post('/', UserController.create);
-UserRoutes.get('/', ensureAuthenticated, UserController.list);
-UserRoutes.get('/:id', ensureAuthenticated, UserController.show);
-UserRoutes.put('/:id', ensureAuthenticated, UserController.update);
-UserRoutes.delete('/:id', ensureAuthenticated, UserController.delete);
+UserRoutes.get(
+  '/',
+  ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
+  UserController.list,
+);
+UserRoutes.get(
+  '/:id',
+  ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
+  UserController.show,
+);
+UserRoutes.put(
+  '/:id',
+  ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
+  UserController.update,
+);
+UserRoutes.delete(
+  '/:id',
+  ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
+  UserController.delete,
+);
 
 export { UserRoutes };

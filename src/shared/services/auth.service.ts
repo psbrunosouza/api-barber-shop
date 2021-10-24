@@ -19,24 +19,35 @@ class AuthService {
       throw new AppError("User doesn't exists", 404);
     }
 
-    if (!(await compare(userToAuthenticated.password, registeredUser.password))) {
+    if (
+      !(await compare(userToAuthenticated.password, registeredUser.password))
+    ) {
       throw new AppError(
         "Email or password doesn't match. Check your credentials",
         422,
       );
     }
 
-    const token = jwt.sign({ id: registeredUser.id }, authConfig.secret, {
-      expiresIn: 86400,
-    });
-
-    const permission = registeredUser.profile;
+    const token = jwt.sign(
+      {
+        user: registeredUser,
+      },
+      authConfig.secret,
+      {
+        expiresIn: 86400,
+      },
+    );
 
     registeredUser.password = '';
 
     return response.status(200).json({
       token,
-      permission,
+      user: {
+        id: registeredUser.id,
+        name: registeredUser.name,
+        profile: registeredUser.profile,
+        email: registeredUser.email,
+      },
     });
   }
 }

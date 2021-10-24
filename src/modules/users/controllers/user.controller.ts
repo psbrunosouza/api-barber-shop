@@ -26,10 +26,10 @@ class UserController {
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const user: User = request.body;
+    const data = request.body;
     const id = +request.params.id;
     const userService = new UpdateUserService();
-    const userUpdated = await userService.execute({ ...user, id });
+    const userUpdated = await userService.execute({ ...data, id });
     return response.status(200).json(userUpdated);
   }
 

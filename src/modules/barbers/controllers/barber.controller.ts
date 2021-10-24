@@ -5,6 +5,7 @@ import CreateBarberService from '../services/create-barber.service';
 import ShowBarberService from '../services/show-barber.service';
 import UpdateBarberService from '../services/update-barber.service';
 import DeleteBarberService from '../services/delete-barber.service';
+import { IUserLogged } from "../../../shared/typeorm/entities/userLogged.model";
 
 class BarberController {
   async list(request: Request, response: Response): Promise<Response> {
@@ -28,10 +29,13 @@ class BarberController {
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const barber: Barber = request.body;
+    const data: Barber = request.body;
     const id = +request.params.id;
     const barbersService = new UpdateBarberService();
-    const barberUpdated = barbersService.execute({ ...barber, id });
+    const barberUpdated = barbersService.execute(
+      { ...data, id },
+      request as IUserLogged,
+    );
     return response.status(200).json(barberUpdated);
   }
 
