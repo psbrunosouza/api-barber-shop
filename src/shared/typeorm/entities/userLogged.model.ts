@@ -3,4 +3,5 @@ export interface IUserLogged {
   name: string | undefined;
   email: string | undefined;
   profile: string | undefined;
+  barberId: number | undefined;
 }

@@ -5,6 +5,7 @@ import ListPackagesService from '../services/list-package.service';
 import ShowPackageService from '../services/show-package.service';
 import UpdatePackageService from '../services/update-package.service';
 import { Package } from '../typeorm/entities/packages.model';
+import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
 
 class PackagesController {
   async list(request: Request, response: Response): Promise<Response> {
@@ -16,35 +17,36 @@ class PackagesController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const packageService = new CreatePackageService();
-    const barberPackage = await packageService.execute({
-      ...request.body,
-    } as Package);
+    const barberPackage = await packageService.execute(
+      {
+        ...request.body,
+      } as Package,
+      request as IUserLogged,
+    );
     return response.status(200).json(barberPackage);
   }
 
   async show(request: Request, response: Response): Promise<Response> {
-    const promotionPackageService = new ShowPackageService();
-    const promotionPackage = await promotionPackageService.execute(
-      +request.params.id,
-    );
-    return response.status(200).json(promotionPackage);
+    const showPackageService = new ShowPackageService();
+    const showPackage = await showPackageService.execute(+request.params.id);
+    return response.status(200).json(showPackage);
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const promotionPackage: Package = request.body;
+    const packages: Package = request.body;
     const id = +request.params.id;
-    const promotionPackageService = new UpdatePackageService();
-    const promotionPackageUpdated = promotionPackageService.execute({
-      ...promotionPackage,
-      id,
-    });
-    return response.status(200).json(promotionPackageUpdated);
+    const updatePackageService = new UpdatePackageService();
+    const packageUpdated = await updatePackageService.execute(
+      { ...packages, id },
+      request as IUserLogged,
+    );
+    return response.status(200).json(packageUpdated);
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const id = +request.params.id;
-    const promotionPackageService = new DeletePackageService();
-    await promotionPackageService.execute(id);
+    const deletePackageService = new DeletePackageService();
+    await deletePackageService.execute(id, request as IUserLogged);
     return response.status(200).json([]);
   }
 }

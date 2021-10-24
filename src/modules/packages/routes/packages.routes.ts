@@ -26,6 +26,7 @@ PackagesRoutes.put(
 PackagesRoutes.delete(
   '/:id',
   ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
   PackageService.delete,
 );
 
