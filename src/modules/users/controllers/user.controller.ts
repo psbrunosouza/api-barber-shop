@@ -5,6 +5,7 @@ import { User } from '../typeorm/entities/user.model';
 import UpdateUserService from '../services/update-user.service';
 import DeleteUserService from '../services/delete-user.service';
 import ShowUserService from '../services/show-user.service';
+import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
 
 class UserController {
   async list(request: Request, response: Response): Promise<Response> {
@@ -29,14 +30,17 @@ class UserController {
     const data = request.body;
     const id = +request.params.id;
     const userService = new UpdateUserService();
-    const userUpdated = await userService.execute({ ...data, id });
+    const userUpdated = await userService.execute(
+      { ...data, id },
+      request as IUserLogged,
+    );
     return response.status(200).json(userUpdated);
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
     const id = +request.params.id;
     const userService = new DeleteUserService();
-    await userService.execute(id);
+    await userService.execute(id, request as IUserLogged);
     return response.status(200).json([]);
   }
 }

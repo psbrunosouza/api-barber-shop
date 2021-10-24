@@ -17,17 +17,7 @@ UserRoutes.get(
   PermissionsMiddleware,
   UserController.show,
 );
-UserRoutes.put(
-  '/:id',
-  ensureAuthenticatedMiddleware,
-  PermissionsMiddleware,
-  UserController.update,
-);
-UserRoutes.delete(
-  '/:id',
-  ensureAuthenticatedMiddleware,
-  PermissionsMiddleware,
-  UserController.delete,
-);
+UserRoutes.put('/:id', ensureAuthenticatedMiddleware, UserController.update);
+UserRoutes.delete('/:id', ensureAuthenticatedMiddleware, UserController.delete);
 
 export { UserRoutes };
