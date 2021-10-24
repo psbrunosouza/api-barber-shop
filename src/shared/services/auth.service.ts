@@ -7,35 +7,47 @@ import AppError from '../errors/AppError';
 import authConfig from '../../config/auth/auth.json';
 class AuthService {
   async authenticate(request: Request, response: Response) {
-    const userToAutheticate = request.body;
+    const userToAuthenticated = request.body;
+
     const userRepository = getCustomRepository(UserRepository);
 
     const registeredUser = await userRepository.findOne({
-      where: { email: userToAutheticate.email },
+      where: { email: userToAuthenticated.email },
     });
 
     if (!registeredUser) {
       throw new AppError("User doesn't exists", 404);
     }
 
-    if (!(await compare(userToAutheticate.password, registeredUser.password))) {
+    if (
+      !(await compare(userToAuthenticated.password, registeredUser.password))
+    ) {
       throw new AppError(
         "Email or password doesn't match. Check your credentials",
         422,
       );
     }
 
-    const token = jwt.sign({ id: registeredUser.id }, authConfig.secret, {
-      expiresIn: 86400,
-    });
-
-    const permission = 'barber';
+    const token = jwt.sign(
+      {
+        user: registeredUser,
+      },
+      authConfig.secret,
+      {
+        expiresIn: 86400,
+      },
+    );
 
     registeredUser.password = '';
 
     return response.status(200).json({
       token,
-      permission,
+      user: {
+        id: registeredUser.id,
+        name: registeredUser.name,
+        profile: registeredUser.profile,
+        email: registeredUser.email,
+      },
     });
   }
 }
