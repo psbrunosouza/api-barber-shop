@@ -4,5 +4,6 @@ declare namespace Express {
     profile: string;
     email: string;
     name: string;
+    barberId: number;
   }
 }

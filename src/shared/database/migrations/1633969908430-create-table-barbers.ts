@@ -29,7 +29,7 @@ export class createTableBarbers1633969908430 implements MigrationInterface {
           {
             name: 'userId',
             type: 'integer',
-            isNullable: true,
+            isNullable: false,
             default: null,
           },
           {

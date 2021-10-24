@@ -9,6 +9,7 @@ interface TokenPayload {
   iat: number;
   exp: number;
   user: User;
+  barberId: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -27,15 +28,16 @@ export const ensureAuthenticatedMiddleware = (
 
   try {
     const data = jwt.verify(token, authConfig.secret);
-    const { user } = data as TokenPayload;
+    const { user, barberId } = data as TokenPayload;
 
     request.id = user.id;
     request.email = user.email;
     request.profile = user.profile;
     request.name = user.name;
+    request.barberId = barberId;
 
     return next();
   } catch {
-    throw new AppError('Token is expired or invalid', 401);
+    throw new AppError('User not authorized', 401);
   }
 };
