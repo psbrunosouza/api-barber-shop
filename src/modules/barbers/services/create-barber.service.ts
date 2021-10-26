@@ -14,7 +14,7 @@ export default class CreateBarberService {
       throw new AppError('Barber email already in use', 409);
     }
 
-    const barberCreated = barbersRepository.create({ ...barber });
+    const barberCreated = barbersRepository.create({ ...barber  });
     await barbersRepository.save({ ...barberCreated });
 
     return barberCreated;

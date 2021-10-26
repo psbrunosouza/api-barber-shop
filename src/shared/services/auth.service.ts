@@ -17,6 +17,8 @@ class AuthService {
       where: { email: user.email },
     });
 
+    console.log(registeredUser);
+
     if (!registeredUser) {
       throw new AppError("User doesn't exists", 404);
     }
@@ -28,7 +30,7 @@ class AuthService {
         where: { userId: registeredUser.id },
       });
 
-      if (!barber) throw new AppError("User doesn't exists", 404);
+      if (!barber) throw new AppError('Barber was not created', 422);
     }
 
     if (!(await compare(user.password, registeredUser.password))) {
