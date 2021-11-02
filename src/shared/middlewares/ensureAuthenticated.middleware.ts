@@ -21,7 +21,7 @@ export const ensureAuthenticatedMiddleware = (
   const { authorization } = request.headers;
 
   if (!authorization) {
-    throw new AppError('User not authorized.', 401);
+    throw new AppError('User not authorized.', 400);
   }
 
   const token = authorization.replace('Bearer', '').trim();
@@ -38,6 +38,6 @@ export const ensureAuthenticatedMiddleware = (
 
     return next();
   } catch {
-    throw new AppError('User not authorized', 401);
+    throw new AppError('User not authorized', 400);
   }
 };

@@ -6,12 +6,7 @@ import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.m
 
 const BarbersRoutes = Router();
 
-BarbersRoutes.post(
-  '/',
-  ensureAuthenticatedMiddleware,
-  PermissionsMiddleware,
-  BarberController.create,
-);
+BarbersRoutes.post('/', BarberController.create);
 BarbersRoutes.get('/', ensureAuthenticatedMiddleware, BarberController.list);
 BarbersRoutes.get(
   '/:id',

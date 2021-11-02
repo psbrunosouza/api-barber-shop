@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { Package } from '../typeorm/entities/packages.model';
+import { Package } from '../typeorm/entities/package.model';
 import { PackagesRepository } from '../typeorm/repositories/packages.repository';
 
 export default class ListPackagesService {
