@@ -7,18 +7,12 @@ const ScheduleRoutes = Router();
 
 ScheduleRoutes.post('/', ensureAuthenticatedMiddleware, ScheduleService.create);
 
-// ScheduleRoutes.get('/:id', ensureAuthenticatedMiddleware, ScheduleService.list);
-//
-// ScheduleRoutes.put(
-//   '/:id',
-//   ensureAuthenticatedMiddleware,
-//   ScheduleService.update,
-// );
+ScheduleRoutes.get('/', ensureAuthenticatedMiddleware, ScheduleService.list);
 
-// ScheduleRoutes.delete(
-//   '/:id',
-//   ensureAuthenticatedMiddleware,
-//   ScheduleService.delete,
-// );
+ScheduleRoutes.put(
+  '/:id',
+  ensureAuthenticatedMiddleware,
+  ScheduleService.update,
+);
 
 export { ScheduleRoutes };

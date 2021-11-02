@@ -17,8 +17,6 @@ class AuthService {
       where: { email: user.email },
     });
 
-    console.log(registeredUser);
-
     if (!registeredUser) {
       throw new AppError("User doesn't exists", 404);
     }
