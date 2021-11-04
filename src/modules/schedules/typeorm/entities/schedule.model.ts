@@ -23,10 +23,6 @@ export class Schedule {
   @Column()
   userId: number;
 
-  @OneToOne(() => User)
-  @JoinColumn()
-  user: User;
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -35,4 +31,8 @@ export class Schedule {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User;
 }

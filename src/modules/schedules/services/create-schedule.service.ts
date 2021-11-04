@@ -23,12 +23,12 @@ export default class CreateScheduleService {
 
     if (!userExists) throw new AppError("User doesn't exists", 404);
 
-    if (scheduleExists) throw new AppError('Schedule already exists', 404);
+    if (scheduleExists) throw new AppError('Schedule already created', 404);
 
-    if (userExists.id !== schedule.userId)
-      throw new AppError('Operation not authorized', 404);
-
-    const createdSchedule = schedulesRepository.create(schedule);
+    const createdSchedule = schedulesRepository.create({
+      ...schedule,
+      userId: userExists.id,
+    });
     return await schedulesRepository.save(createdSchedule);
   }
 }

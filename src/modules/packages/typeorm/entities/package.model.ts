@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Barber } from '../../../barbers/typeorm/entities/barber.model';
+import { ServiceOrder } from '../../../service_order/typeorm/entities/service-order.model';
 
 @Entity('packages')
 export class Package {
@@ -25,6 +26,9 @@ export class Package {
   description: string;
 
   @Column()
+  serviceOrderId: number;
+
+  @Column()
   barberId: number;
 
   @CreateDateColumn()
@@ -39,4 +43,8 @@ export class Package {
   @ManyToOne(() => Barber)
   @JoinColumn({ name: 'barberId' })
   barber: Barber;
+
+  @ManyToOne(() => ServiceOrder)
+  @JoinColumn({ name: 'serviceOrderId' })
+  serviceOrder: ServiceOrder;
 }

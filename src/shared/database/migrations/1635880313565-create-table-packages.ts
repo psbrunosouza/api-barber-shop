@@ -5,9 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class createTablePromotionPackages1634250648143
-  implements MigrationInterface
-{
+export class createTablePackages1635880313565 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -23,6 +21,14 @@ export class createTablePromotionPackages1634250648143
           { name: 'name', type: 'varchar', isNullable: false },
           { name: 'value', type: 'integer', isNullable: false },
           { name: 'description', type: 'varchar', isNullable: false },
+
+          {
+            name: 'serviceOrderId',
+            type: 'integer',
+            isNullable: true,
+            default: null,
+          },
+
           {
             name: 'created_at',
             type: 'timestamp',
@@ -61,9 +67,22 @@ export class createTablePromotionPackages1634250648143
         onUpdate: 'CASCADE',
       }),
     );
+
+    await queryRunner.createForeignKey(
+      'packages',
+      new TableForeignKey({
+        name: 'fk_serviceOrderid',
+        columnNames: ['serviceOrderId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'service_orders',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('packages', 'fk_serviceOrdersId');
     await queryRunner.dropForeignKey('packages', 'fk_barberid');
     await queryRunner.dropTable('packages');
   }

@@ -30,13 +30,6 @@ class SchedulesController {
     const scheduleUpdate = await updateScheduleService.execute(id, schedule);
     return response.status(200).json(scheduleUpdate);
   }
-  //
-  // async delete(request: Request, response: Response): Promise<Response> {
-  //   const id = +request.params.id;
-  //   const deletePackageService = new DeletePackageService();
-  //   await deletePackageService.execute(id, request as IUserLogged);
-  //   return response.status(200).json([]);
-  // }
 }
 
 export default new SchedulesController();
