@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
 import CreateScheduleService from '../services/create-schedule.service';
 import { Schedule } from '../typeorm/entities/schedule.model';
 import ShowScheduleService from '../services/list-schedule.service';

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import authConfig from '../../config/auth/auth.json';
 import AppError from '../errors/AppError';
-import { User } from '../../modules/users/typeorm/entities/user.model';
+import { User } from '../../modules/users/infra/typeorm/entities/User';
 
 interface TokenPayload {
   id: number;

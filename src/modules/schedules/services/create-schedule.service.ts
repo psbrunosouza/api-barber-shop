@@ -1,9 +1,9 @@
 import { getCustomRepository } from 'typeorm';
-import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
 import AppError from '../../../shared/errors/AppError';
 import { Schedule } from '../typeorm/entities/schedule.model';
 import { SchedulesRepository } from '../typeorm/repositories/schedules.repository';
-import { UserRepository } from '../../users/typeorm/repositories/user.repository';
+import { UserRepository } from '../../users/infra/typeorm/repositories/UserRepository';
 
 export default class CreateScheduleService {
   public async execute(

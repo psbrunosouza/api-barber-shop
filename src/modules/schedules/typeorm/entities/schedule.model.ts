@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
-import { User } from '../../../users/typeorm/entities/user.model';
+import { User } from '../../../users/infra/typeorm/entities/User';
 
 @Entity('schedules')
 export class Schedule {

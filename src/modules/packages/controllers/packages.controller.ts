@@ -5,7 +5,7 @@ import ListPackagesService from '../services/list-package.service';
 import ShowPackageService from '../services/show-package.service';
 import UpdatePackageService from '../services/update-package.service';
 import { Package } from '../typeorm/entities/package.model';
-import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
 
 class PackagesController {
   async list(request: Request, response: Response): Promise<Response> {

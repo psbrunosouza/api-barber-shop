@@ -4,10 +4,10 @@ module.exports = {
   port: 5432,
   username: 'postgres',
   password: 'postgres',
-  database: 'postgres',
+  database: 'barbershopdb',
   entities: ['src/modules/**/typeorm/entities/*.ts'],
-  migrations: ['src/shared/database/migrations/*.ts'],
+  migrations: ['src/shared/infra/typeorm/migrations/*.ts'],
   cli: {
-    migrationsDir: './src/shared/database/migrations',
+    migrationsDir: './src/shared/infra/typeorm/migrations',
   },
 };
