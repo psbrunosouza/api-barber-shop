@@ -3,7 +3,7 @@ import AppError from '../../../shared/errors/AppError';
 import { Barber } from '../infra/typeorm/entities/Barber';
 import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
 import { UserRepository } from '../../users/infra/typeorm/repositories/UserRepository';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { inject, injectable } from 'tsyringe';
 import { IBarberDTO } from '../dtos/IBarberDTO';
 import { IBarberRepository } from '../repositories/IBarberRepository';

@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
 import { PackagesRepository } from '../typeorm/repositories/packages.repository';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
 
 export default class DeletePackageService {

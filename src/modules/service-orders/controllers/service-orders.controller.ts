@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import CreateServiceOrdersService from '../services/create-service-orders.service';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import ListServiceOrdersService from '../services/list-service-orders.service';
 
 class ServiceOrdersController {

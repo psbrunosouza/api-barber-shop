@@ -3,7 +3,7 @@ import { User } from '../infra/typeorm/entities/User';
 import { UserRepository } from '../infra/typeorm/repositories/UserRepository';
 import { hash } from 'bcrypt';
 import AppError from '../../../shared/errors/AppError';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { inject, injectable } from "tsyringe";
 import { IUserDTO } from '../dtos/IUserDTO';
 

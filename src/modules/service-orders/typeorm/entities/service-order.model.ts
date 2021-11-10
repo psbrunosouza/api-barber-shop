@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
   JoinTable,
 } from 'typeorm';
-import { Schedule } from '../../../schedules/typeorm/entities/schedule.model';
+import { Schedule } from '../../../schedules/infra/typeorm/entities/Schedule';
 import { Package } from '../../../packages/typeorm/entities/package.model';
 
 @Entity('service_orders')

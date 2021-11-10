@@ -1,6 +1,6 @@
 import AppError from '../../../shared/errors/AppError';
 import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { inject, injectable } from "tsyringe";
 import { IBarberRepository } from '../repositories/IBarberRepository';
 import { UserRepository } from "../../users/infra/typeorm/repositories/UserRepository";

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { BarbersRoutes } from '../../../../modules/barbers/infra/http/routes/barbers.routes';
 import { UserRoutes } from '../../../../modules/users/infra/http/routes/users.routes';
 import { PackagesRoutes } from '../../../../modules/packages/routes/packages.routes';
-import { ScheduleRoutes } from '../../../../modules/schedules/routes/schedule.routes';
+import { ScheduleRoutes } from '../../../../modules/schedules/infra/http/routes/schedule.routes';
 import { ServiceOrdersRoutes } from '../../../../modules/service-orders/routes/service-orders.routes';
 import { ServiceOrdersPackagesRoutes } from '../../../../modules/service-orders-packages/routes/service-orders-packages.routes';
 

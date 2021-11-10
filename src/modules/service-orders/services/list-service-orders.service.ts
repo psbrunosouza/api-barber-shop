@@ -1,9 +1,9 @@
 import { ServiceOrder } from '../typeorm/entities/service-order.model';
 import { getCustomRepository } from 'typeorm';
 import { ServiceOrdersRepository } from '../typeorm/repositories/service-orders.repository';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import AppError from '../../../shared/errors/AppError';
-import { SchedulesRepository } from '../../schedules/typeorm/repositories/schedules.repository';
+import { SchedulesRepository } from '../../schedules/infra/typeorm/repositories/schedules.repository';
 
 export default class ListServiceOrdersService {
   public async execute(loggedUser: IUserLogged): Promise<ServiceOrder[]> {

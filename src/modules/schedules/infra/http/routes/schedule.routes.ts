@@ -1,7 +1,7 @@
 import Router from 'express';
-import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
-import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
-import ScheduleService from '../controllers/schedules.controller';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import ScheduleService from '../controllers/ScheduleController';
 
 const ScheduleRoutes = Router();
 

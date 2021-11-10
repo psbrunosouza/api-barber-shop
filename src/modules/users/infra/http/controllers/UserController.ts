@@ -5,7 +5,7 @@ import { User } from '../../typeorm/entities/User';
 import UpdateUserService from '../../../services/UpdateUserService';
 import DeleteUserService from '../../../services/DeleteUserService';
 import ShowUserService from '../../../services/ShowUserService';
-import { IUserLogged } from '../../../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
 import { AuthService } from '../../../services/AuthService';
 import { container } from 'tsyringe';
 

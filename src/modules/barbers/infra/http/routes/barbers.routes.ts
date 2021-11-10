@@ -1,5 +1,5 @@
 import Router from 'express';
-import BarberController from '../../../controllers/BarberController';
+import BarberController from '../controllers/BarberController';
 import PackagesController from '../../../../packages/controllers/packages.controller';
 import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';

@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { Barber } from '../infra/typeorm/entities/Barber';
-import ListBarbersService from '../services/ListBarberService';
-import CreateBarberService from '../services/CreateBarberService';
-import ShowBarberService from '../services/ShowBarberService';
-import UpdateBarberService from '../services/UpdateBarberService';
-import DeleteBarberService from '../services/DeleteBarberService';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { Barber } from '../../typeorm/entities/Barber';
+import ListBarbersService from '../../../services/ListBarberService';
+import CreateBarberService from '../../../services/CreateBarberService';
+import ShowBarberService from '../../../services/ShowBarberService';
+import UpdateBarberService from '../../../services/UpdateBarberService';
+import DeleteBarberService from '../../../services/DeleteBarberService';
+import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
 import { container } from 'tsyringe';
 
 class BarberController {

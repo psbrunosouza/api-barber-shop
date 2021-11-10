@@ -3,7 +3,7 @@ import { UserRepository } from '../infra/typeorm/repositories/UserRepository';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../repositories/IUserRepository';
 import { IUserDTO } from '../dtos/IUserDTO';
-import { IUserLogged } from '../../../shared/infra/typeorm/entities/userLogged.model';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 
 @injectable()
 export default class ShowUserService {
