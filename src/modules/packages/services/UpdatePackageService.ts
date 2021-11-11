@@ -1,38 +1,37 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
-import { Package } from '../infra/typeorm/entities/package.model';
-import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
 import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
+import { inject, injectable } from 'tsyringe';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
+import { Package } from '../infra/typeorm/entities/Package';
+import { IPackageDTO } from '../dtos/IPackageDTO';
 
-export default class UpdatePackageService {
+@injectable()
+export class UpdatePackageService {
+  constructor(
+    @inject(PackagesRepository)
+    private packageRepository: IPackageRepository,
+  ) {}
+
   public async execute(
     packages: Package,
     userLogged: IUserLogged,
-  ): Promise<Package> {
-    const packagesRepository = getCustomRepository(PackagesRepository);
-    const barbersRepository = getCustomRepository(BarbersRepository);
+  ): Promise<IPackageDTO> {
+    const packageExists = await this.packageRepository.findById(packages.id);
 
-    const packageExists = await packagesRepository.findOne({
-      where: { id: packages.id },
-    });
+    if (!packageExists) throw new AppError("Package doesn't exists", 404);
 
-    const barberExists = await barbersRepository.findOne({
-      where: { id: userLogged.barberId },
-    });
+    if (!userLogged.barberId)
+      throw new AppError("User doesn't have a Barber Shop", 404);
 
-    if (!packageExists)
-      throw new AppError('There is no promotion packages for this user!', 404);
+    if (packageExists.barberId !== userLogged.barberId)
+      throw new AppError('Not authorized', 401);
 
-    if (!barberExists)
-      throw new AppError('There is no promotion packages for this user!', 404);
-
-    if (packageExists.barberId !== barberExists.id)
-      throw new AppError('Not authorized', 400);
-
-    const promotionPackageUpdated = packagesRepository.create({
+    return await this.packageRepository.save({
       ...packages,
+      barberId: userLogged.barberId,
     });
-    return await packagesRepository.save(promotionPackageUpdated);
   }
 }

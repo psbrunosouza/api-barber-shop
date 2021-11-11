@@ -1,10 +1,16 @@
-import { getCustomRepository } from 'typeorm';
-import { Package } from '../infra/typeorm/entities/package.model';
-import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
+import { inject, injectable } from 'tsyringe';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
+import { IPackageDTO } from '../dtos/IPackageDTO';
 
-export default class ListPackagesService {
-  public async execute(barberId: number): Promise<Package[]> {
-    const packagesRepository = getCustomRepository(PackagesRepository);
-    return packagesRepository.find({ where: { barberId: barberId } });
+@injectable()
+export class ListPackagesService {
+  constructor(
+    @inject(PackagesRepository)
+    private packageRepository: IPackageRepository,
+  ) {}
+
+  public async execute(barberId: number): Promise<IPackageDTO[]> {
+    return this.packageRepository.listByOwner(barberId);
   }
 }

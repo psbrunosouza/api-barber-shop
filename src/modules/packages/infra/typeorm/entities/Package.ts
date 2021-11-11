@@ -9,9 +9,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Barber } from '../../../../barbers/infra/typeorm/entities/Barber';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { IPackageDTO } from '../../../dtos/IPackageDTO';
 
 @Entity('packages')
-export class Package {
+export class Package extends DefaultEntity implements IPackageDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -26,15 +28,6 @@ export class Package {
 
   @Column()
   barberId: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @DeleteDateColumn()
-  deleted_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(() => Barber)
   @JoinColumn({ name: 'barberId' })

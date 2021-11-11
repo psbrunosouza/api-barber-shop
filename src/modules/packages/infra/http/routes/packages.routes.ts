@@ -1,7 +1,7 @@
 import Router from 'express';
-import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
-import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
-import PackageService from '../infra/http/controllers/packages.controller';
+import PackagesController from '../controllers/PackageController';
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 
 const PackagesRoutes = Router();
 
@@ -9,25 +9,29 @@ PackagesRoutes.post(
   '/',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
-  PackageService.create,
+  PackagesController.create,
 );
 PackagesRoutes.get(
   '/:id/packages',
   ensureAuthenticatedMiddleware,
-  PackageService.list,
+  PackagesController.list,
 );
-PackagesRoutes.get('/:id', ensureAuthenticatedMiddleware, PackageService.show);
+PackagesRoutes.get(
+  '/:id',
+  ensureAuthenticatedMiddleware,
+  PackagesController.show,
+);
 PackagesRoutes.put(
   '/:id',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
-  PackageService.update,
+  PackagesController.update,
 );
 PackagesRoutes.delete(
   '/:id',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
-  PackageService.delete,
+  PackagesController.delete,
 );
 
 export { PackagesRoutes };

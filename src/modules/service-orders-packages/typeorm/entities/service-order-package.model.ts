@@ -8,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Package } from '../../../packages/typeorm/entities/package.model';
 import { ServiceOrder } from '../../../service-orders/typeorm/entities/service-order.model';
+import { Package } from '../../../packages/infra/typeorm/entities/Package';
 
 @Entity('service_orders_packages')
 export class ServiceOrderPackage {

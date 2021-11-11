@@ -11,7 +11,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { Schedule } from '../../../schedules/infra/typeorm/entities/Schedule';
-import { Package } from '../../../packages/typeorm/entities/package.model';
+import { Package } from '../../../packages/infra/typeorm/entities/Package';
 
 @Entity('service_orders')
 export class ServiceOrder {

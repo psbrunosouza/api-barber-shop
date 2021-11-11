@@ -1,30 +1,25 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
-import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
 import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
-import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
+import { inject, injectable } from 'tsyringe';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
 
-export default class DeletePackageService {
+@injectable()
+export class DeletePackageService {
+  constructor(
+    @inject(PackagesRepository)
+    private packageRepository: IPackageRepository,
+  ) {}
+
   public async execute(id: number, loggedUser: IUserLogged): Promise<void> {
-    const packagesRepository = getCustomRepository(PackagesRepository);
-    const barbersRepository = getCustomRepository(BarbersRepository);
+    const packageExists = await this.packageRepository.findById(id);
 
-    const packageExists = await packagesRepository.findOne({
-      where: { id },
-    });
+    if (!packageExists) throw new AppError("Package Doesn't exists", 404);
 
-    const barberExists = await barbersRepository.findOne({
-      where: { id: loggedUser.barberId },
-    });
-
-    if (!packageExists)
-      throw new AppError('Nothing here, come back later', 404);
-
-    if (!barberExists) throw new AppError('Nothing here, come back later', 404);
-
-    if (packageExists.barberId !== barberExists.id)
+    if (packageExists.barberId !== loggedUser.barberId)
       throw new AppError('Not authorized', 400);
 
-    await packagesRepository.delete(id);
+    await this.packageRepository.delete(id);
   }
 }

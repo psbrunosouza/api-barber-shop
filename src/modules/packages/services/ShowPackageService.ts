@@ -1,15 +1,19 @@
-import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
-import { Package } from '../infra/typeorm/entities/package.model';
-import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
+import { inject, injectable } from 'tsyringe';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
+import { IPackageDTO } from '../dtos/IPackageDTO';
 
-export default class ShowPackageService {
-  public async execute(id: number): Promise<Package | undefined> {
-    const packagesRepository = getCustomRepository(PackagesRepository);
-    const packages = await packagesRepository.findOne({
-      where: { id },
-    });
-    if (!packages) throw new AppError('Promotion Package not found !', 404);
+@injectable()
+export class ShowPackageService {
+  constructor(
+    @inject(PackagesRepository)
+    private packageRepository: IPackageRepository,
+  ) {}
+
+  public async execute(id: number): Promise<IPackageDTO | undefined> {
+    const packages = await this.packageRepository.findById(id);
+    if (!packages) throw new AppError("Package doesn't exists", 404);
     return packages;
   }
 }
