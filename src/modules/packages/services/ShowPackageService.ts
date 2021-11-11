@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
-import { Package } from '../typeorm/entities/package.model';
-import { PackagesRepository } from '../typeorm/repositories/packages.repository';
+import { Package } from '../infra/typeorm/entities/package.model';
+import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
 
 export default class ShowPackageService {
   public async execute(id: number): Promise<Package | undefined> {

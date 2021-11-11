@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
-import { PackagesRepository } from '../typeorm/repositories/packages.repository';
+import { PackagesRepository } from '../infra/typeorm/repositories/packages.repository';
 import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
 

@@ -1,7 +1,7 @@
 import Router from 'express';
 import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
 import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
-import PackageService from '../controllers/packages.controller';
+import PackageService from '../infra/http/controllers/packages.controller';
 
 const PackagesRoutes = Router();
 

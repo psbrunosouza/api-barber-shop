@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import CreatePackageService from '../services/create-package.service';
-import DeletePackageService from '../services/delete-package.service';
-import ListPackagesService from '../services/list-package.service';
-import ShowPackageService from '../services/show-package.service';
-import UpdatePackageService from '../services/update-package.service';
-import { Package } from '../typeorm/entities/package.model';
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
+import CreatePackageService from '../../../services/CreatePackageService';
+import DeletePackageService from '../../../services/delete-package.service';
+import ListPackagesService from '../../../services/list-package.service';
+import ShowPackageService from '../../../services/show-package.service';
+import UpdatePackageService from '../../../services/update-package.service';
+import { Package } from '../../typeorm/entities/package.model';
+import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
 
 class PackagesController {
   async list(request: Request, response: Response): Promise<Response> {
