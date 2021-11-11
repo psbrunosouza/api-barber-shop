@@ -1,8 +1,8 @@
 import Router from 'express';
 import BarberController from '../controllers/BarberController';
-import PackagesController from '../../../../packages/controllers/packages.controller';
 import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import PackageController from '../../../../packages/infra/http/controllers/PackageController';
 
 const BarbersRoutes = Router();
 
@@ -24,7 +24,7 @@ BarbersRoutes.put(
 BarbersRoutes.get(
   '/:id/packages',
   ensureAuthenticatedMiddleware,
-  PackagesController.list,
+  PackageController.list,
 );
 
 BarbersRoutes.delete(
