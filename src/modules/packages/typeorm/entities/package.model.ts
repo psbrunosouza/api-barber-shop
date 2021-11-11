@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Barber } from '../../../barbers/typeorm/entities/barber.model';
+import { Barber } from '../../../barbers/infra/typeorm/entities/Barber';
 
 @Entity('packages')
 export class Package {

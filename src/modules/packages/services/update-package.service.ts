@@ -2,8 +2,8 @@ import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
 import { Package } from '../typeorm/entities/package.model';
 import { PackagesRepository } from '../typeorm/repositories/packages.repository';
-import { IUserLogged } from '../../../shared/typeorm/entities/userLogged.model';
-import { BarbersRepository } from '../../barbers/typeorm/repositories/barber.repository';
+import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
+import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
 
 export default class UpdatePackageService {
   public async execute(
