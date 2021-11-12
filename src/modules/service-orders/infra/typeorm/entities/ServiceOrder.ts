@@ -32,9 +32,10 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   @Column('date')
   endDate: Date;
 
-  @ManyToMany(() => Package)
+  @ManyToMany(() => Package, packages => packages.service_orders)
   @JoinTable()
   packages: Package[];
+
 
   @ManyToOne(() => Schedule)
   @JoinColumn({ name: 'providerId' })

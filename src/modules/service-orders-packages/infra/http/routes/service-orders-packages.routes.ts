@@ -1,7 +1,7 @@
 import Router from 'express';
-import ServiceOrderPackageController from '../controllers/service-order-package.controller';
-import { ensureAuthenticatedMiddleware } from '../../../shared/middlewares/ensureAuthenticated.middleware';
-import { PermissionsMiddleware } from '../../../shared/middlewares/permissions.middleware';
+import ServiceOrderPackageController from '../controllers/ServiceOrderPackageController';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
 
 const ServiceOrdersPackagesRoutes = Router();
 

@@ -3,7 +3,7 @@ import { BarbersRoutes } from '../../../../modules/barbers/infra/http/routes/bar
 import { UserRoutes } from '../../../../modules/users/infra/http/routes/users.routes';
 import { ScheduleRoutes } from '../../../../modules/schedules/infra/http/routes/schedule.routes';
 import { ServiceOrdersRoutes } from '../../../../modules/service-orders/infra/http/routes/service-orders.routes';
-import { ServiceOrdersPackagesRoutes } from '../../../../modules/service-orders-packages/routes/service-orders-packages.routes';
+import { ServiceOrdersPackagesRoutes } from '../../../../modules/service-orders-packages/infra/http/routes/service-orders-packages.routes';
 import { PackagesRoutes } from '../../../../modules/packages/infra/http/routes/packages.routes';
 
 const routes = Router();

@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
-import RelationServiceOrderPackageService from '../services/relation-service-order-package.service';
+import { container } from 'tsyringe';
+import RelationServiceOrderPackageService from '../../../services/RelationServiceOrderPackageService';
 
 class ServiceOrderPackageController {
   async create(request: Request, response: Response): Promise<Response> {
-    const relationServiceOrderPackageService =
-      new RelationServiceOrderPackageService();
+    const relationServiceOrderPackageService = container.resolve(
+      RelationServiceOrderPackageService,
+    );
     const relationServiceOrderPackage =
       await relationServiceOrderPackageService.execute(request.body);
-    return response.status(201).json(relationServiceOrderPackage);
+    return response.json(relationServiceOrderPackage);
   }
   // async create(request: Request, response: Response): Promise<Response> {
   //   const barbersService = new CreateBarberService();

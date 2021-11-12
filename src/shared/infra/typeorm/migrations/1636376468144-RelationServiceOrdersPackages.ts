@@ -1,8 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class createRelationTableServiceOrdersPackages1636376468144
   implements MigrationInterface
@@ -10,7 +6,7 @@ export class createRelationTableServiceOrdersPackages1636376468144
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'service_orders_packages',
+        name: 'service_orders_packages_packages',
         columns: [
           {
             name: 'id',
