@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ServiceOrder } from '../../../service-orders/typeorm/entities/service-order.model';
+import { ServiceOrder } from '../../../service-orders/infra/typeorm/entities/ServiceOrder';
 import { Package } from '../../../packages/infra/typeorm/entities/Package';
 
 @Entity('service_orders_packages')

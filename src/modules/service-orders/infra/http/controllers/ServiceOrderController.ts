@@ -1,24 +1,29 @@
 import { Request, Response } from 'express';
-import CreateServiceOrdersService from '../services/create-service-orders.service';
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
-import ListServiceOrdersService from '../services/list-service-orders.service';
+import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
+import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
+import ListServiceOrdersService from '../../../services/ListServiceOrderService';
+import { container } from 'tsyringe';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
-    const createServiceOrderService = new CreateServiceOrdersService();
+    const createServiceOrderService = container.resolve(
+      CreateServiceOrdersService,
+    );
     const serviceOrder = await createServiceOrderService.execute(
       request.body,
       request as IUserLogged,
     );
-    return response.status(200).json(serviceOrder);
+    return response.json(serviceOrder);
   }
 
   async list(request: Request, response: Response): Promise<Response> {
-    const listServiceOrdersService = new ListServiceOrdersService();
+    const listServiceOrdersService = container.resolve(
+      ListServiceOrdersService,
+    );
     const serviceOrders = await listServiceOrdersService.execute(
       request as IUserLogged,
     );
-    return response.status(200).json(serviceOrders);
+    return response.json(serviceOrders);
   }
 
   // async update(request: Request, response: Response): Promise<Response> {

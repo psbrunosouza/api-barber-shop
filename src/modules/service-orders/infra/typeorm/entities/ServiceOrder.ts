@@ -10,11 +10,13 @@ import {
   UpdateDateColumn,
   JoinTable,
 } from 'typeorm';
-import { Schedule } from '../../../schedules/infra/typeorm/entities/Schedule';
-import { Package } from '../../../packages/infra/typeorm/entities/Package';
+import { Schedule } from '../../../../schedules/infra/typeorm/entities/Schedule';
+import { Package } from '../../../../packages/infra/typeorm/entities/Package';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
 
 @Entity('service_orders')
-export class ServiceOrder {
+export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -29,15 +31,6 @@ export class ServiceOrder {
 
   @Column('date')
   endDate: Date;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @DeleteDateColumn()
-  deleted_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToMany(() => Package)
   @JoinTable()
