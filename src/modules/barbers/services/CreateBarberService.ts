@@ -1,9 +1,9 @@
-import AppError from '../../../shared/errors/AppError';
-import { Barber } from '../infra/typeorm/entities/Barber';
-import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
 import { inject, injectable } from 'tsyringe';
-import { IBarberRepository } from '../repositories/IBarberRepository';
-import { IBarberDTO } from '../dtos/IBarberDTO';
+import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
+import AppError from '@shared/errors/AppError';
+import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
+import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
 
 @injectable()
 export default class CreateBarberService {
@@ -18,9 +18,9 @@ export default class CreateBarberService {
     );
 
     if (barberAlreadyExists) {
-      throw new AppError('Barber email already in use', 409);
+      throw new AppError('Barber email already in use.', 409);
     }
 
-    return await this.barberRepository.save({ ...barber });
+    return await this.barberRepository.save(barber);
   }
 }

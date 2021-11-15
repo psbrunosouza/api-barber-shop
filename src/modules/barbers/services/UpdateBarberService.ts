@@ -1,13 +1,11 @@
-import { getCustomRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
-import { Barber } from '../infra/typeorm/entities/Barber';
-import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
-import { UserRepository } from '../../users/infra/typeorm/repositories/UserRepository';
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 import { inject, injectable } from 'tsyringe';
-import { IBarberDTO } from '../dtos/IBarberDTO';
-import { IBarberRepository } from '../repositories/IBarberRepository';
-import { IUserRepository } from '../../users/repositories/IUserRepository';
+import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
+import AppError from '@shared/errors/AppError';
+import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
+import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
+import { IUserRepository } from '@modules/users/repositories/IUserRepository';
+import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
 
 @injectable()
 export default class UpdateBarberService {
@@ -18,30 +16,10 @@ export default class UpdateBarberService {
     private userRepository: IUserRepository,
   ) {}
 
-  public async execute(
-    barber: Barber,
-    userLogged: IUserLogged,
-  ): Promise<IBarberDTO> {
-    const userLoggedExists = await this.userRepository.findUserByEmail(
-      userLogged.email || '',
-    );
-
-    const userOwnerExists = await this.barberRepository.findOwner(
-      barber.userId,
-    );
-
-    if (!userLoggedExists) {
-      throw new AppError('Nothing here, come back later', 404);
-    }
-
-    if (!userOwnerExists) {
-      throw new AppError('Nothing here, come back later', 404);
-    }
-
-    if (userLoggedExists.id !== userOwnerExists.userId) {
-      throw new AppError('User access unauthorized', 404);
-    }
-
-    return await this.barberRepository.save(barber);
+  public async execute(id: number, barber: Barber): Promise<IBarberDTO> {
+    const barberExists = await this.barberRepository.findBarberById(id);
+    if (!barberExists)
+      throw new AppError("The Barber Shop doesn't exists", 422);
+    return this.barberRepository.save(barber);
   }
 }

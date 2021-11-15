@@ -1,14 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import authConfig from '../../config/auth/auth.json';
-import AppError from '../errors/AppError';
-import { User } from '../../modules/users/infra/typeorm/entities/User';
+import { auth } from '@config/auth';
+import AppError from '@shared/errors/AppError';
 
-interface TokenPayload {
-  id: number;
+interface ITokenPayload {
   iat: number;
   exp: number;
-  user: User;
+  userId: number;
   barberId: number;
 }
 
@@ -21,23 +19,19 @@ export const ensureAuthenticatedMiddleware = (
   const { authorization } = request.headers;
 
   if (!authorization) {
-    throw new AppError('User not authorized.', 400);
+    throw new AppError('Invalid token', 401);
   }
 
   const token = authorization.replace('Bearer', '').trim();
 
-  try {
-    const data = jwt.verify(token, authConfig.secret);
-    const { user, barberId } = data as TokenPayload;
+  const data = jwt.verify(token, auth.secret);
 
-    request.id = user.id;
-    request.email = user.email;
-    request.profile = user.profile;
-    request.name = user.name;
-    request.barberId = barberId;
+  const { userId, barberId } = data as ITokenPayload;
 
-    return next();
-  } catch {
-    throw new AppError('User not authorized', 400);
-  }
+  console.log({ userId, barberId });
+
+  request.barberId = barberId;
+  request.userId = userId;
+
+  return next();
 };

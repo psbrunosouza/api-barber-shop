@@ -1,26 +1,32 @@
 import Router from 'express';
-import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
-import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
-import { UserController } from '../controllers/UserController';
+import { celebrate, Segments } from 'celebrate';
+import { PermissionsMiddleware } from '@shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
+import { UserController } from '@modules/users/infra/http/controllers/UserController';
+import userSchema from '@modules/users/schemas/user.schema';
+
 const UserRoutes = Router();
 
 const userController = new UserController();
 
-UserRoutes.post('/', userController.create);
 UserRoutes.get(
   '/',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
   userController.list,
 );
-UserRoutes.get(
-  '/profile',
-  ensureAuthenticatedMiddleware,
-  PermissionsMiddleware,
-  userController.show,
-);
-UserRoutes.put('/:id', ensureAuthenticatedMiddleware, userController.update);
-UserRoutes.delete('/:id', ensureAuthenticatedMiddleware, userController.delete);
+
+UserRoutes.get('/profile', ensureAuthenticatedMiddleware, userController.show);
+
 UserRoutes.post(`/login`, userController.auth);
+
+UserRoutes.post(
+  '/',
+  [celebrate({ [Segments.BODY]: userSchema })],
+  userController.create,
+);
+
+UserRoutes.put('/', ensureAuthenticatedMiddleware, userController.update);
+UserRoutes.delete('/', ensureAuthenticatedMiddleware, userController.delete);
 
 export { UserRoutes };

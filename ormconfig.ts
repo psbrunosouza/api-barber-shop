@@ -1,10 +1,14 @@
+import { database } from '@config/database';
+
 module.exports = {
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: '123',
-  database: 'barbershopdb',
+  host: database.host,
+  port: database.port,
+  username: database.user,
+  password: database.password,
+  database: database.name,
+  autoLoadEntities: true,
+  synchronize: false,
   entities: ['src/modules/**/infra/typeorm/entities/*.ts'],
   migrations: ['src/shared/infra/typeorm/migrations/*.ts'],
   cli: {

@@ -1,4 +1,4 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { ServiceOrder } from '../entities/ServiceOrder';
 import { injectable } from 'tsyringe';
 import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
@@ -10,20 +10,14 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
   constructor() {
     this.repository = getRepository(ServiceOrder);
   }
-  listServiceOrdersPackages(): Promise<IServiceOrderDTO[]> {
-    return this.repository
-      .createQueryBuilder('service_orders')
-      .leftJoinAndSelect('service_orders.packages', 'packages')
-      .getMany();
-  }
   save(data: IServiceOrderDTO): Promise<IServiceOrderDTO> {
     return this.repository.save(data);
   }
   findById(id: number): Promise<IServiceOrderDTO | undefined> {
     return this.repository.findOne({ where: { id } });
   }
-  delete(id: number): void {
-    this.repository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
   list(): Promise<IServiceOrderDTO[]> {
     return this.repository.find();

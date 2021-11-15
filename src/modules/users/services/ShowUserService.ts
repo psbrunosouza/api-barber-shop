@@ -3,7 +3,6 @@ import { UserRepository } from '../infra/typeorm/repositories/UserRepository';
 import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '../repositories/IUserRepository';
 import { IUserDTO } from '../dtos/IUserDTO';
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
 
 @injectable()
 export default class ShowUserService {
@@ -12,14 +11,11 @@ export default class ShowUserService {
     private userRepository: IUserRepository,
   ) {}
 
-  public async execute(userLogged: IUserLogged): Promise<IUserDTO | undefined> {
-    const userLoggedExists = await this.userRepository.findUserByEmail(
-      userLogged.email || '',
-    );
+  public async execute(id: number): Promise<IUserDTO | undefined> {
+    const userLoggedExists = await this.userRepository.findUserById(id);
 
     if (!userLoggedExists) throw new AppError('User not found !', 404);
 
-    userLoggedExists.password = undefined;
     return userLoggedExists;
   }
 }

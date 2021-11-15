@@ -1,13 +1,10 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
   JoinTable,
 } from 'typeorm';
 import { Schedule } from '../../../../schedules/infra/typeorm/entities/Schedule';
@@ -20,22 +17,33 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
-  requestedId: number;
-
-  @Column()
-  providerId: number;
-
   @Column('date')
   startDate: Date;
 
   @Column('date')
   endDate: Date;
 
-  @ManyToMany(() => Package, packages => packages.service_orders)
-  @JoinTable()
-  packages: Package[];
+  @ManyToOne(() => Schedule, { eager: true })
+  @JoinColumn({ name: 'requestedId' })
+  requestedId: number;
 
+  @ManyToOne(() => Schedule, { eager: true })
+  @JoinColumn({ name: 'providerId' })
+  providerId: number;
+
+  @ManyToMany(() => Package, { eager: true })
+  @JoinTable({
+    name: 'service_orders_packages',
+    joinColumn: {
+      name: 'serviceOrderId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'packageId',
+      referencedColumnName: 'id',
+    },
+  })
+  packages: Package[];
 
   @ManyToOne(() => Schedule)
   @JoinColumn({ name: 'providerId' })

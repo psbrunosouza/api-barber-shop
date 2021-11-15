@@ -3,6 +3,7 @@ import CreateServiceOrdersService from '../../../services/CreateServiceOrderServ
 import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
 import ListServiceOrdersService from '../../../services/ListServiceOrderService';
 import { container } from 'tsyringe';
+import ValidateScheduleExistsService from '../../../services/ValidateScheduleExistsService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -20,26 +21,23 @@ class ServiceOrdersController {
     const listServiceOrdersService = container.resolve(
       ListServiceOrdersService,
     );
-    const serviceOrders = await listServiceOrdersService.execute(
+
+    const validateScheduleExistsService = container.resolve(
+      ValidateScheduleExistsService,
+    );
+
+    const scheduleExists = validateScheduleExistsService.execute(
       request as IUserLogged,
     );
-    return response.json(serviceOrders);
+
+    if (!scheduleExists) {
+      return response
+        .status(422)
+        .json({ error: "You doesn't have a Schedule" });
+    }
+
+    return response.json(await listServiceOrdersService.execute());
   }
-
-  // async update(request: Request, response: Response): Promise<Response> {
-  //   const schedule: Schedule = request.body;
-  //   const id = +request.params.id;
-  //   const updateScheduleService = new UpdateScheduleService();
-  //   const scheduleUpdate = await updateScheduleService.execute(id, schedule);
-  //   return response.status(200).json(scheduleUpdate);
-  // }
-
-  // async delete(request: Request, response: Response): Promise<Response> {
-  //   const id = +request.params.id;
-  //   const deletePackageService = new DeletePackageService();
-  //   await deletePackageService.execute(id, request as IUserLogged);
-  //   return response.status(200).json([]);
-  // }
 }
 
 export default new ServiceOrdersController();

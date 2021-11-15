@@ -6,7 +6,7 @@ export class createRelationTableServiceOrdersPackages1636376468144
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'service_orders_packages_packages',
+        name: 'service_orders_packages',
         columns: [
           {
             name: 'id',

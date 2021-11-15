@@ -13,7 +13,7 @@ import {
 import { Barber } from '../../../../barbers/infra/typeorm/entities/Barber';
 import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
 import { IPackageDTO } from '../../../dtos/IPackageDTO';
-import { ServiceOrder } from 'modules/service-orders/infra/typeorm/entities/ServiceOrder';
+import { ServiceOrder } from '../../../../service-orders/infra/typeorm/entities/ServiceOrder';
 
 @Entity('packages')
 export class Package extends DefaultEntity implements IPackageDTO {
@@ -31,10 +31,6 @@ export class Package extends DefaultEntity implements IPackageDTO {
 
   @Column()
   barberId: number;
-
-  @ManyToMany(() => ServiceOrder, service_orders => service_orders.packages)
-  @JoinTable()
-  service_orders: ServiceOrder[];
 
   @ManyToOne(() => Barber)
   @JoinColumn({ name: 'barberId' })
