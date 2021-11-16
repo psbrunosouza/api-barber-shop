@@ -28,8 +28,6 @@ export const ensureAuthenticatedMiddleware = (
 
   const { userId, barberId } = data as ITokenPayload;
 
-  console.log({ userId, barberId });
-
   request.barberId = barberId;
   request.userId = userId;
 

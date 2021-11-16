@@ -11,7 +11,7 @@ export const PermissionsMiddleware = (
 ) => {
   const userRepository = container.resolve(UserRepository);
 
-  const { id } = request.token.sub.user;
+  const id = request.userId;
 
   userRepository.findUserById(id).then(user => {
     if (user?.profile !== 'barber')

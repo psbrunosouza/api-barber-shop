@@ -16,8 +16,8 @@ export class BarbersRepository implements IBarberRepository {
     return this.repository.save(data);
   }
 
-  delete(id: number): void {
-    this.repository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
 
   findBarberByEmail(email: string): Promise<IBarberDTO | undefined> {
@@ -34,5 +34,9 @@ export class BarbersRepository implements IBarberRepository {
 
   findOwner(ownerId: number): Promise<IBarberDTO | undefined> {
     return this.repository.findOne({ where: { user: { id: ownerId } } });
+  }
+
+  async update(id: number, data: IBarberDTO): Promise<void> {
+    await this.repository.update(id, data);
   }
 }

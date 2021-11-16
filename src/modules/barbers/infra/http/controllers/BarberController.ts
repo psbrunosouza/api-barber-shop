@@ -14,11 +14,9 @@ class BarberController {
   }
 
   async create(request: Request, response: Response): Promise<Response> {
+    const data = request.body;
     const barbersService = container.resolve(CreateBarberService);
-    const barber = (await barbersService.execute({
-      ...request.body,
-    })) as Barber;
-    return response.json(barber);
+    return response.json(await barbersService.execute(data));
   }
 
   async show(request: Request, response: Response): Promise<Response> {
@@ -27,14 +25,15 @@ class BarberController {
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const data: Barber = request.body;
-    const { id } = request.token.sub.barber;
+    const data = request.body;
+    const userId = request.userId;
+    const barberId = request.barberId;
     const barbersService = container.resolve(UpdateBarberService);
-    return response.json(await barbersService.execute(id, data));
+    return response.json(await barbersService.execute(userId, barberId, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.token.sub.barber;
+    const id = request.barberId;
     const barbersService = container.resolve(DeleteBarberService);
     return response.json(await barbersService.execute(id));
   }
