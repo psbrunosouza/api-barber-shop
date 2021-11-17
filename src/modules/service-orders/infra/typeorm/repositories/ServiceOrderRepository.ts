@@ -22,7 +22,17 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
   list(): Promise<IServiceOrderDTO[]> {
     return this.repository.find();
   }
-  findOwner(id: number): Promise<IServiceOrderDTO | undefined> {
-    return this.repository.findOne({ where: { id } });
+  findByOwner(id: number): Promise<IServiceOrderDTO | undefined> {
+    return this.repository.findOne({
+      where: {
+        requested: {
+          id,
+        },
+      },
+    });
+  }
+
+  async update(id: number, data: IServiceOrderDTO): Promise<void> {
+    await this.repository.update(id, data);
   }
 }

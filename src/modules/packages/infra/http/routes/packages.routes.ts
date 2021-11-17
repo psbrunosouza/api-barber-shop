@@ -1,7 +1,9 @@
 import Router from 'express';
+import { celebrate, Segments } from 'celebrate';
 import PackagesController from '../controllers/PackageController';
-import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
-import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
+import packageSchema from '@modules/packages/schemas/package.schema';
+import { PermissionsMiddleware } from '@shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
 
 const PackagesRoutes = Router();
 
@@ -9,6 +11,7 @@ PackagesRoutes.post(
   '/',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
+  [celebrate({ [Segments.BODY]: packageSchema })],
   PackagesController.create,
 );
 PackagesRoutes.get(
@@ -25,6 +28,7 @@ PackagesRoutes.put(
   '/:id',
   ensureAuthenticatedMiddleware,
   PermissionsMiddleware,
+  [celebrate({ [Segments.BODY]: packageSchema })],
   PackagesController.update,
 );
 PackagesRoutes.delete(

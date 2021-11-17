@@ -1,23 +1,22 @@
 import { Request, Response } from 'express';
-import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
-import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
-import ListServiceOrdersService from '../../../services/ListServiceOrderService';
 import { container } from 'tsyringe';
-import ValidateScheduleExistsService from '../../../services/ValidateScheduleExistsService';
+import CreateServiceOrdersService from '@modules/service-orders/services/CreateServiceOrderService';
+import ListServiceOrdersService from '@modules/service-orders/services/ListServiceOrderService';
+import ValidateScheduleExistsService from '@modules/service-orders/services/ValidateScheduleExistsService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
+    const data = request.body;
+    const id = request.userId;
     const createServiceOrderService = container.resolve(
       CreateServiceOrdersService,
     );
-    const serviceOrder = await createServiceOrderService.execute(
-      request.body,
-      request as IUserLogged,
-    );
-    return response.json(serviceOrder);
+    return response.json(await createServiceOrderService.execute(id, data));
   }
 
   async list(request: Request, response: Response): Promise<Response> {
+    const userId = request.userId;
+
     const listServiceOrdersService = container.resolve(
       ListServiceOrdersService,
     );
@@ -26,9 +25,7 @@ class ServiceOrdersController {
       ValidateScheduleExistsService,
     );
 
-    const scheduleExists = validateScheduleExistsService.execute(
-      request as IUserLogged,
-    );
+    const scheduleExists = validateScheduleExistsService.execute(userId);
 
     if (!scheduleExists) {
       return response

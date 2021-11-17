@@ -5,5 +5,6 @@ export interface IServiceOrderRepository {
   findById(id: number): Promise<IServiceOrderDTO | undefined>;
   delete(id: number): Promise<void>;
   list(): Promise<IServiceOrderDTO[]>;
-  findOwner(id: number): Promise<IServiceOrderDTO | undefined>;
+  findByOwner(id: number): Promise<IServiceOrderDTO | undefined>;
+  update(id: number, data: IServiceOrderDTO): Promise<void>;
 }

@@ -1,6 +1,6 @@
 import Router from 'express';
-import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 import ServiceOrdersController from '../controllers/ServiceOrderController';
+import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
 
 const ServiceOrdersRoutes = Router();
 

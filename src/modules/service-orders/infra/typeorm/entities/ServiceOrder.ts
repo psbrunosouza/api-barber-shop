@@ -7,10 +7,11 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
 } from 'typeorm';
-import { Schedule } from '../../../../schedules/infra/typeorm/entities/Schedule';
-import { Package } from '../../../../packages/infra/typeorm/entities/Package';
-import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
 import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
+import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
+import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
+import { Package } from '@modules/packages/infra/typeorm/entities/Package';
+import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
 
 @Entity('service_orders')
 export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
@@ -22,14 +23,6 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
 
   @Column('date')
   endDate: Date;
-
-  @ManyToOne(() => Schedule, { eager: true })
-  @JoinColumn({ name: 'requestedId' })
-  requestedId: number;
-
-  @ManyToOne(() => Schedule, { eager: true })
-  @JoinColumn({ name: 'providerId' })
-  providerId: number;
 
   @ManyToMany(() => Package, { eager: true })
   @JoinTable({
@@ -45,7 +38,11 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   })
   packages: Package[];
 
-  @ManyToOne(() => Schedule)
+  @ManyToOne(() => Schedule, { eager: true })
   @JoinColumn({ name: 'providerId' })
   provider: Schedule;
+
+  @ManyToOne(() => Schedule, { eager: true })
+  @JoinColumn({ name: 'requestedId' })
+  requested: Schedule;
 }

@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
-const scheduleSchema = Joi.object({
+const packageSchema = Joi.object({
   name: Joi.string().required(),
-  description: Joi.string().required(),
+  value: Joi.number().required(),
 });
 
-export default scheduleSchema.options({
+export default packageSchema.options({
   abortEarly: false,
   allowUnknown: true,
   stripUnknown: true,

@@ -1,12 +1,12 @@
-import { ServiceOrder } from '../infra/typeorm/entities/ServiceOrder';
-import { ServiceOrdersRepository } from '../infra/typeorm/repositories/ServiceOrderRepository';
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
-import AppError from '../../../shared/errors/AppError';
-import { SchedulesRepository } from '../../schedules/infra/typeorm/repositories/schedules.repository';
 import { injectable, inject } from 'tsyringe';
-import { IServiceOrderRepository } from '../repositories/IServiceOrderRepository';
 import { IScheduleRepository } from 'modules/schedules/repositories/IScheduleRepository';
-import { IServiceOrderDTO } from '../dtos/IServiceOrderDTO';
+import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
+import AppError from '@shared/errors/AppError';
+import { ServiceOrder } from '@modules/service-orders/infra/typeorm/entities/ServiceOrder';
+import { ServiceOrdersRepository } from '@modules/service-orders/infra/typeorm/repositories/ServiceOrderRepository';
+import { IServiceOrderRepository } from '@modules/service-orders/repositories/IServiceOrderRepository';
+import { IServiceOrderDTO } from '@modules/service-orders/dtos/IServiceOrderDTO';
+import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
 
 @injectable()
 export default class CreateServiceOrdersService {
@@ -18,18 +18,19 @@ export default class CreateServiceOrdersService {
   ) {}
 
   public async execute(
+    id: number,
     serviceOrder: ServiceOrder,
-    loggedUser: IUserLogged,
   ): Promise<IServiceOrderDTO> {
-    const scheduleExists = await this.scheduleRepository.findScheduleOwner(
-      loggedUser.id as number,
-    );
+    const scheduleExists = await this.scheduleRepository.findScheduleOwner(id);
 
-    if (!scheduleExists) throw new AppError("Schedule doesn't exists", 404);
+    if (!scheduleExists)
+      throw new AppError("The User doesn't have a Schedule", 422);
 
     return await this.serviceOrderRepository.save({
       ...serviceOrder,
-      requestedId: scheduleExists.id as number,
+      requested: {
+        id: scheduleExists.id,
+      } as Schedule,
     });
   }
 }

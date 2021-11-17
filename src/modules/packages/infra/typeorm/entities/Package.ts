@@ -1,19 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { Barber } from '../../../../barbers/infra/typeorm/entities/Barber';
-import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
-import { IPackageDTO } from '../../../dtos/IPackageDTO';
-import { ServiceOrder } from '../../../../service-orders/infra/typeorm/entities/ServiceOrder';
+import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
+import { IPackageDTO } from '@modules/packages/dtos/IPackageDTO';
+import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
 
 @Entity('packages')
 export class Package extends DefaultEntity implements IPackageDTO {
@@ -29,10 +23,7 @@ export class Package extends DefaultEntity implements IPackageDTO {
   @Column()
   description: string;
 
-  @Column()
-  barberId: number;
-
-  @ManyToOne(() => Barber)
-  @JoinColumn({ name: 'barberId' })
+  @ManyToOne(() => Barber, { eager: true })
+  @JoinColumn()
   barber: Barber;
 }
