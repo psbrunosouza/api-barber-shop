@@ -14,6 +14,7 @@ export class UserRepository implements IUserRepository {
 
   findUserByEmail(email: string): Promise<IUserDTO | undefined> {
     return this.repository.findOne({
+      select: ['id', 'email', 'profile', 'name', 'password'],
       where: { email },
     });
   }
@@ -26,11 +27,15 @@ export class UserRepository implements IUserRepository {
     return this.repository.findOne({ id });
   }
 
-  delete(id: number): void {
-    this.repository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
 
   list(): Promise<IUserDTO[]> {
     return this.repository.find();
+  }
+
+  async update(id: number, data: IUserDTO): Promise<void> {
+    await this.repository.update(id, data);
   }
 }

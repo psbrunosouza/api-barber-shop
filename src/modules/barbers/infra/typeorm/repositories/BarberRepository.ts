@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { Barber } from '../entities/Barber';
 import { injectable } from 'tsyringe';
-import { IBarberRepository } from '../../../repositories/IBarberRepository';
-import { IBarberDTO } from '../../../dtos/IBarberDTO';
+import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
+import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
 
 @injectable()
 export class BarbersRepository implements IBarberRepository {
@@ -16,8 +16,8 @@ export class BarbersRepository implements IBarberRepository {
     return this.repository.save(data);
   }
 
-  delete(id: number): void {
-    this.repository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
 
   findBarberByEmail(email: string): Promise<IBarberDTO | undefined> {
@@ -33,6 +33,10 @@ export class BarbersRepository implements IBarberRepository {
   }
 
   findOwner(ownerId: number): Promise<IBarberDTO | undefined> {
-    return this.repository.findOne({ where: { userId: ownerId } });
+    return this.repository.findOne({ where: { user: { id: ownerId } } });
+  }
+
+  async update(id: number, data: IBarberDTO): Promise<void> {
+    await this.repository.update(id, data);
   }
 }

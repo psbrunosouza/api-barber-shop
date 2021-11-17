@@ -1,10 +1,8 @@
-import { getCustomRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
-import { Barber } from '../infra/typeorm/entities/Barber';
-import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
 import { inject, injectable } from 'tsyringe';
-import { IBarberRepository } from '../repositories/IBarberRepository';
-import { IBarberDTO } from '../dtos/IBarberDTO';
+import AppError from '@shared/errors/AppError';
+import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
+import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
 
 @injectable()
 export default class ShowBarberService {
@@ -15,7 +13,7 @@ export default class ShowBarberService {
 
   public async execute(id: number): Promise<IBarberDTO | undefined> {
     const barber = await this.barberRepository.findBarberById(id);
-    if (!barber) throw new AppError('Barber not found !', 404);
+    if (!barber) throw new AppError("The Barber Shop doesn't exists", 422);
     return barber;
   }
 }

@@ -18,18 +18,16 @@ export default class CreateUserService {
     );
 
     if (userAlreadyExists) {
-      throw new AppError('Email already in use', 409);
+      throw new AppError('Email already in use', 422);
     }
 
-    const hashPassword = await hash(user.password || '', 8);
+    const hashPassword = await hash(user.password, 8);
 
     const createdUser = await this.userRepository.save({
       ...user,
       password: hashPassword,
     });
 
-    createdUser.password = undefined;
-
-    return createdUser;
+    return { ...createdUser, password: undefined } as unknown as IUserDTO;
   }
 }

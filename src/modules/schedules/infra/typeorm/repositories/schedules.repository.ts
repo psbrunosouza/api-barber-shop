@@ -1,8 +1,8 @@
 import { injectable } from 'tsyringe';
-import { IScheduleRepository } from '../../../repositories/IScheduleRepository';
 import { getRepository, Repository } from 'typeorm';
-import { IScheduleDTO } from '../../../dtos/IScheduleDTO';
-import { Schedule } from '../entities/Schedule';
+import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
+import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
+import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
 
 @injectable()
 export class SchedulesRepository implements IScheduleRepository {
@@ -12,8 +12,8 @@ export class SchedulesRepository implements IScheduleRepository {
     this.repository = getRepository(Schedule);
   }
 
-  delete(id: number): void {
-    this.repository.delete(id);
+  async delete(id: number): Promise<void> {
+    await this.repository.delete(id);
   }
 
   findScheduleById(id: number): Promise<IScheduleDTO | undefined> {
@@ -33,8 +33,14 @@ export class SchedulesRepository implements IScheduleRepository {
   findScheduleOwner(id: number): Promise<IScheduleDTO | undefined> {
     return this.repository.findOne({
       where: {
-        userId: id,
+        user: {
+          id: id,
+        },
       },
     });
+  }
+
+  async update(id: number, data: IScheduleDTO): Promise<void> {
+    await this.repository.update(id, data);
   }
 }

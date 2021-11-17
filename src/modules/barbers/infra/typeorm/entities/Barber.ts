@@ -1,16 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../../../users/infra/typeorm/entities/User';
-import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
-import { IDefaultDTO } from '../../../../../shared/dtos/IDefaultDTO';
+import { User } from '@modules/users/infra/typeorm/entities/User';
+import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
+import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
 
 @Entity('barbers')
 export class Barber extends DefaultEntity implements IDefaultDTO {
@@ -41,10 +38,7 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
   @Column()
   streetNumber: string;
 
-  @Column()
-  userId: number;
-
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'userId' })
   user: User;
 }

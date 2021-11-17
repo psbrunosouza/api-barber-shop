@@ -1,50 +1,41 @@
 import { Request, Response } from 'express';
-import { Barber } from '../../typeorm/entities/Barber';
-import ListBarbersService from '../../../services/ListBarberService';
-import CreateBarberService from '../../../services/CreateBarberService';
-import ShowBarberService from '../../../services/ShowBarberService';
-import UpdateBarberService from '../../../services/UpdateBarberService';
-import DeleteBarberService from '../../../services/DeleteBarberService';
-import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
 import { container } from 'tsyringe';
+import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
+import UpdateBarberService from '@modules/barbers/services/UpdateBarberService';
+import ShowBarberService from '@modules/barbers/services/ShowBarberService';
+import ListBarbersService from '@modules/barbers/services/ListBarberService';
+import CreateBarberService from '@modules/barbers/services/CreateBarberService';
+import DeleteBarberService from '@modules/barbers/services/DeleteBarberService';
 
 class BarberController {
   async list(request: Request, response: Response): Promise<Response> {
     const barbersService = container.resolve(ListBarbersService);
-    const barbers = await barbersService.execute();
-    return response.json(barbers);
+    return response.json(await barbersService.execute());
   }
 
   async create(request: Request, response: Response): Promise<Response> {
+    const data = request.body;
     const barbersService = container.resolve(CreateBarberService);
-    const barber = (await barbersService.execute({
-      ...request.body,
-    })) as Barber;
-    return response.json(barber);
+    return response.json(await barbersService.execute(data));
   }
 
   async show(request: Request, response: Response): Promise<Response> {
     const barbersService = container.resolve(ShowBarberService);
-    const barber = await barbersService.execute(+request.params.id);
-    return response.json(barber);
+    return response.json(await barbersService.execute(+request.params.id));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
-    const data: Barber = request.body;
-    const id = +request.params.id;
+    const data = request.body;
+    const userId = request.userId;
+    const barberId = request.barberId;
     const barbersService = container.resolve(UpdateBarberService);
-    const barberUpdated = await barbersService.execute(
-      { ...data, id },
-      request as IUserLogged,
-    );
-    return response.json(barberUpdated);
+    return response.json(await barbersService.execute(userId, barberId, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
-    const id = +request.params.id;
+    const id = request.barberId;
     const barbersService = container.resolve(DeleteBarberService);
-    await barbersService.execute(id, request as IUserLogged);
-    return response.json([]);
+    return response.json(await barbersService.execute(id));
   }
 }
 

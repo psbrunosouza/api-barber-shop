@@ -1,16 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../../../users/infra/typeorm/entities/User';
-import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
-import { IScheduleDTO } from '../../../dtos/IScheduleDTO';
+import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
+import { User } from '@modules/users/infra/typeorm/entities/User';
+import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
 
 @Entity('schedules')
 export class Schedule extends DefaultEntity implements IScheduleDTO {
@@ -23,10 +20,7 @@ export class Schedule extends DefaultEntity implements IScheduleDTO {
   @Column()
   description: string;
 
-  @Column()
-  userId: number;
-
-  @OneToOne(() => User)
+  @OneToOne(() => User, { eager: true })
   @JoinColumn()
   user: User;
 }

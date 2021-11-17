@@ -1,10 +1,8 @@
-import { getCustomRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
-import { Schedule } from '../infra/typeorm/entities/Schedule';
-import { SchedulesRepository } from '../infra/typeorm/repositories/schedules.repository';
 import { inject, injectable } from 'tsyringe';
-import { IScheduleRepository } from '../repositories/IScheduleRepository';
-import { IScheduleDTO } from '../dtos/IScheduleDTO';
+import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
+import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
+import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
+import AppError from '@shared/errors/AppError';
 
 @injectable()
 export default class UpdateScheduleService {
@@ -13,19 +11,13 @@ export default class UpdateScheduleService {
     private scheduleRepository: IScheduleRepository,
   ) {}
 
-  public async execute(
-    scheduleId: number,
-    schedule: Schedule,
-  ): Promise<IScheduleDTO> {
+  public async execute(scheduleId: number, schedule: Schedule): Promise<void> {
     const scheduleExists = await this.scheduleRepository.findScheduleById(
       scheduleId,
     );
 
     if (!scheduleExists) throw new AppError("Schedule doesn't exists", 404);
 
-    return await this.scheduleRepository.save({
-      ...schedule,
-      id: scheduleId,
-    });
+    return await this.scheduleRepository.update(scheduleId, schedule);
   }
 }

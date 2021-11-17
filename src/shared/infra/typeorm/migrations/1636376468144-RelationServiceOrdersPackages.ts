@@ -1,8 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class createRelationTableServiceOrdersPackages1636376468144
   implements MigrationInterface

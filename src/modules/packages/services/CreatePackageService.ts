@@ -1,12 +1,11 @@
-import { IUserLogged } from '../../../shared/dtos/IUserLoggedDTO';
-import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
-import AppError from '../../../shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
-import { IPackageRepository } from '../repositories/IPackageRepository';
-import { IBarberRepository } from '../../barbers/repositories/IBarberRepository';
-import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
-import { Package } from '../infra/typeorm/entities/Package';
-import { IPackageDTO } from '../dtos/IPackageDTO';
+import { IPackageDTO } from '@modules/packages/dtos/IPackageDTO';
+import { PackagesRepository } from '@modules/packages/infra/typeorm/repositories/PackageRepository';
+import { Package } from '@modules/packages/infra/typeorm/entities/Package';
+import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
+import { IPackageRepository } from '@modules/packages/repositories/IPackageRepository';
+import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
 
 @injectable()
 export class CreatePackageService {
@@ -18,20 +17,14 @@ export class CreatePackageService {
   ) {}
 
   public async execute(
+    barberId: number,
     barberPackage: Package,
-    userLogged: IUserLogged,
   ): Promise<IPackageDTO> {
-    const barberExists = await this.barberRepository.findBarberById(
-      userLogged.barberId as number,
-    );
-
-    if (!barberExists) throw new AppError("Barber doesn't exists", 404);
-    if (!userLogged.barberId)
-      throw new AppError("User doesn't have a Barber Shop", 404);
-
     return await this.packageRepository.save({
       ...barberPackage,
-      barberId: userLogged.barberId,
+      barber: {
+        id: barberId,
+      } as Barber,
     });
   }
 }

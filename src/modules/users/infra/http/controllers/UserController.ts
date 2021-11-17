@@ -1,55 +1,46 @@
 import { Request, Response } from 'express';
-import ListUserService from '../../../services/ListUserService';
-import CreateUserService from '../../../services/CreateUserService';
-import { User } from '../../typeorm/entities/User';
-import UpdateUserService from '../../../services/UpdateUserService';
-import DeleteUserService from '../../../services/DeleteUserService';
-import ShowUserService from '../../../services/ShowUserService';
-import { IUserLogged } from '../../../../../shared/dtos/IUserLoggedDTO';
-import { AuthService } from '../../../services/AuthService';
 import { container } from 'tsyringe';
+import CreateUserService from '@modules/users/services/CreateUserService';
+import { AuthService } from '@modules/users/services/AuthService';
+import ListUserService from '@modules/users/services/ListUserService';
+import UpdateUserService from '@modules/users/services/UpdateUserService';
+import ShowUserService from '@modules/users/services/ShowUserService';
+import DeleteUserService from '@modules/users/services/DeleteUserService';
 
 export class UserController {
   async list(request: Request, response: Response): Promise<Response> {
-    const userService = container.resolve(ListUserService);
-    const users = await userService.execute();
+    const listUserService = container.resolve(ListUserService);
+    const users = await listUserService.execute();
     return response.json(users);
   }
 
   async create(request: Request, response: Response): Promise<Response> {
-    const userService = container.resolve(CreateUserService);
-    const user = await userService.execute({ ...request.body } as User);
+    const data = request.body;
+    const createUserService = container.resolve(CreateUserService);
+    const user = await createUserService.execute(data);
     return response.json(user);
   }
 
   async auth(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
-    const userAuthService = container.resolve(AuthService);
-    const user = await userAuthService.execute({ email, password });
-    return response.json(user);
+    const authService = container.resolve(AuthService);
+    const token = await authService.execute({ email, password });
+    return response.json(token);
   }
 
   async show(request: Request, response: Response): Promise<Response> {
-    const userService = container.resolve(ShowUserService);
-    const user = await userService.execute(request as IUserLogged);
-    return response.json(user);
+    const showUserService = container.resolve(ShowUserService);
+    return response.json(await showUserService.execute(request.userId));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
     const data = request.body;
-    const id = +request.params.id;
-    const userService = container.resolve(UpdateUserService);
-    const userUpdated = await userService.execute(
-      { ...data, id },
-      request as IUserLogged,
-    );
-    return response.json(userUpdated);
+    const updateUserService = container.resolve(UpdateUserService);
+    return response.json(await updateUserService.execute(request.userId, data));
   }
 
   async delete(request: Request, response: Response): Promise<Response> {
-    const id = +request.params.id;
-    const userService = container.resolve(DeleteUserService);
-    await userService.execute(id, request as IUserLogged);
-    return response.json([]);
+    const deleteUserService = container.resolve(DeleteUserService);
+    return response.json(await deleteUserService.execute(request.userId));
   }
 }
