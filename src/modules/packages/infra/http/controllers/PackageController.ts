@@ -16,6 +16,7 @@ class PackagesController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const data = request.body;
+    console.log(data);
     const id = request.barberId;
     const packageService = container.resolve(CreatePackageService);
     return response.json(await packageService.execute(id, data));

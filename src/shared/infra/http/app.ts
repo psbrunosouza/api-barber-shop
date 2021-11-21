@@ -11,7 +11,13 @@ import routes from '@shared/infra/http/routes';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+const options: cors.CorsOptions = {
+  methods: '*',
+  origin: '*',
+};
+
+app.use(cors(options));
 app.use(express.json());
 app.use(routes);
 

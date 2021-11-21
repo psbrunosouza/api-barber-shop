@@ -8,6 +8,7 @@ interface ITokenPayload {
   exp: number;
   userId: number;
   barberId: number;
+  name: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -26,10 +27,11 @@ export const ensureAuthenticatedMiddleware = (
 
   const data = jwt.verify(token, auth.secret);
 
-  const { userId, barberId } = data as ITokenPayload;
+  const { userId, barberId, name } = data as ITokenPayload;
 
   request.barberId = barberId;
   request.userId = userId;
+  request.name = name;
 
   return next();
 };

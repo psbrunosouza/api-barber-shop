@@ -16,6 +16,7 @@ interface IAuthServiceDTO {
 interface IPayloadDTO {
   userId: number;
   barberId?: number;
+  name: string;
 }
 
 interface IAuthServiceResponse {
@@ -60,6 +61,7 @@ export class AuthService {
     const payload: IPayloadDTO = {
       userId: user.id,
       barberId: barberExists?.id,
+      name: user.name,
     } as IPayloadDTO;
 
     const token = jwt.sign(payload, auth.secret, {
