@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import { errors as validationErrorsHandler } from 'celebrate';
-import routes from './routes';
-import errorHandler from '../../handlers/errorHandler';
 import '../typeorm/index';
+import routes from "./routes";
+import errorHandler from "../../handlers/errorHandler";
 
 dotenv.config();
 
