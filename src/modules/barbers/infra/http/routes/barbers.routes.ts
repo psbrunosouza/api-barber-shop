@@ -1,10 +1,10 @@
 import Router from 'express';
-import PackageController from '@modules/packages/infra/http/controllers/PackageController';
-import { PermissionsMiddleware } from '@shared/middlewares/permissions.middleware';
-import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
-import BarberController from '@modules/barbers/infra/http/controllers/BarberController';
 import { celebrate, Segments } from 'celebrate';
-import barberSchema from '@modules/barbers/schemas/barber.schema';
+import BarberController from '../controllers/BarberController';
+import PackageController from '../../../../packages/infra/http/controllers/PackageController';
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
+import barberSchema from '../../../schemas/barber.schema';
 
 const BarbersRoutes = Router();
 

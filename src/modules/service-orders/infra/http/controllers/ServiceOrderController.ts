@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateServiceOrdersService from '@modules/service-orders/services/CreateServiceOrderService';
-import ListServiceOrdersService from '@modules/service-orders/services/ListServiceOrderService';
-import ValidateScheduleExistsService from '@modules/service-orders/services/ValidateScheduleExistsService';
+import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
+import ListServiceOrdersService from '../../../services/ListServiceOrderService';
+import ValidateScheduleExistsService from '../../../services/ValidateScheduleExistsService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import { IPackageRepository } from '@modules/packages/repositories/IPackageRepository';
-import { PackagesRepository } from '@modules/packages/infra/typeorm/repositories/PackageRepository';
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
 
 @injectable()
 export class DeletePackageService {

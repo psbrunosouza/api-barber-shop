@@ -1,8 +1,8 @@
 import Router from 'express';
-import ScheduleService from '@modules/schedules/infra/http/controllers/ScheduleController';
-import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
+import ScheduleService from '../controllers/ScheduleController';
+import scheduleSchema from '../../../schemas/schedule.schema';
 import { celebrate, Segments } from 'celebrate';
-import scheduleSchema from '@modules/schedules/schemas/schedule.schema';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 
 const ScheduleRoutes = Router();
 

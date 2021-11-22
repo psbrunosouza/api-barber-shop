@@ -1,12 +1,12 @@
 import { injectable, inject } from 'tsyringe';
-import { IScheduleRepository } from 'modules/schedules/repositories/IScheduleRepository';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import AppError from '@shared/errors/AppError';
-import { ServiceOrder } from '@modules/service-orders/infra/typeorm/entities/ServiceOrder';
-import { ServiceOrdersRepository } from '@modules/service-orders/infra/typeorm/repositories/ServiceOrderRepository';
-import { IServiceOrderRepository } from '@modules/service-orders/repositories/IServiceOrderRepository';
-import { IServiceOrderDTO } from '@modules/service-orders/dtos/IServiceOrderDTO';
-import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
+import AppError from '../../../shared/errors/AppError';
+import { IScheduleRepository } from '../../schedules/repositories/IScheduleRepository';
+import { ServiceOrder } from '../infra/typeorm/entities/ServiceOrder';
+import { Schedule } from '../../schedules/infra/typeorm/entities/Schedule';
+import { ServiceOrdersRepository } from '../infra/typeorm/repositories/ServiceOrderRepository';
+import { IServiceOrderRepository } from '../repositories/IServiceOrderRepository';
+import { IServiceOrderDTO } from '../dtos/IServiceOrderDTO';
+import { SchedulesRepository } from '../../schedules/infra/typeorm/repositories/schedules.repository';
 
 @injectable()
 export default class CreateServiceOrdersService {

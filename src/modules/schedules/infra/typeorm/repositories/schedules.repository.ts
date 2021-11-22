@@ -1,8 +1,8 @@
 import { injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
-import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
-import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
+import { IScheduleDTO } from '../../../dtos/IScheduleDTO';
+import { IScheduleRepository } from '../../../repositories/IScheduleRepository';
+import { Schedule } from '../entities/Schedule';
 
 @injectable()
 export class SchedulesRepository implements IScheduleRepository {

@@ -5,9 +5,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
-import { User } from '@modules/users/infra/typeorm/entities/User';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
+import { IScheduleDTO } from '../../../dtos/IScheduleDTO';
+import { User } from '../../../../users/infra/typeorm/entities/User';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
 
 @Entity('schedules')
 export class Schedule extends DefaultEntity implements IScheduleDTO {

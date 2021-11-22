@@ -5,9 +5,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '@modules/users/infra/typeorm/entities/User';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
+import { User } from '../../../../users/infra/typeorm/entities/User';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { IDefaultDTO } from '../../../../../shared/dtos/IDefaultDTO';
 
 @Entity('barbers')
 export class Barber extends DefaultEntity implements IDefaultDTO {

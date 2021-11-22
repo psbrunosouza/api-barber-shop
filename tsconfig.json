@@ -15,17 +15,17 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
-    "paths": {
-      "@modules/*": [
-        "modules/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-    },
+//    "paths": {
+//      "@modules/*": [
+//        "modules/*"
+//      ],
+//      "@shared/*": [
+//        "shared/*"
+//      ],
+//      "@config/*": [
+//        "config/*"
+//      ],
+//    },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

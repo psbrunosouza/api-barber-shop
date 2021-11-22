@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { ListPackagesService } from '@modules/packages/services/ListPackageService';
-import { ShowPackageService } from '@modules/packages/services/ShowPackageService';
-import { CreatePackageService } from '@modules/packages/services/CreatePackageService';
-import { DeletePackageService } from '@modules/packages/services/DeletePackageService';
-import { Package } from '@modules/packages/infra/typeorm/entities/Package';
-import { UpdatePackageService } from '@modules/packages/services/UpdatePackageService';
+import { ListPackagesService } from '../../../services/ListPackageService';
+import { ShowPackageService } from '../../../services/ShowPackageService';
+import { CreatePackageService } from '../../../services/CreatePackageService';
+import { DeletePackageService } from '../../../services/DeletePackageService';
+import { Package } from '../../typeorm/entities/Package';
+import { UpdatePackageService } from '../../../services/UpdatePackageService';
 
 class PackagesController {
   async list(request: Request, response: Response): Promise<Response> {

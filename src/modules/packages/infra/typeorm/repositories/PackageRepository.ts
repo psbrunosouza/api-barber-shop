@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { injectable } from 'tsyringe';
-import { IPackageRepository } from '@modules/packages/repositories/IPackageRepository';
-import { IPackageDTO } from '@modules/packages/dtos/IPackageDTO';
-import { Package } from '@modules/packages/infra/typeorm/entities/Package';
+import { IPackageRepository } from '../../../repositories/IPackageRepository';
+import { IPackageDTO } from '../../../dtos/IPackageDTO';
+import { Package } from '../entities/Package';
 
 @injectable()
 export class PackagesRepository implements IPackageRepository {

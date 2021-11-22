@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
-import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
-import AppError from '@shared/errors/AppError';
+import AppError from '../../../shared/errors/AppError';
+import { IScheduleRepository } from '../repositories/IScheduleRepository';
+import { Schedule } from '../infra/typeorm/entities/Schedule';
+import { SchedulesRepository } from '../infra/typeorm/repositories/schedules.repository';
 
 @injectable()
 export default class UpdateScheduleService {

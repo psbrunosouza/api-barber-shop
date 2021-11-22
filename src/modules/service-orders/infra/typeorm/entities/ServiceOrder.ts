@@ -7,11 +7,10 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
 } from 'typeorm';
-import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import { Package } from '@modules/packages/infra/typeorm/entities/Package';
-import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { Schedule } from '../../../../schedules/infra/typeorm/entities/Schedule';
+import { Package } from '../../../../packages/infra/typeorm/entities/Package';
+import { IServiceOrderDTO } from '../../../dtos/IServiceOrderDTO';
 
 @Entity('service_orders')
 export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {

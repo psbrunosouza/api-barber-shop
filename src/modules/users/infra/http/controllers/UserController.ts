@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateUserService from '@modules/users/services/CreateUserService';
-import { AuthService } from '@modules/users/services/AuthService';
-import ListUserService from '@modules/users/services/ListUserService';
-import UpdateUserService from '@modules/users/services/UpdateUserService';
-import ShowUserService from '@modules/users/services/ShowUserService';
-import DeleteUserService from '@modules/users/services/DeleteUserService';
+import CreateUserService from '../../../services/CreateUserService';
+import { AuthService } from '../../../services/AuthService';
+import ListUserService from '../../../services/ListUserService';
+import UpdateUserService from '../../../services/UpdateUserService';
+import ShowUserService from '../../../services/ShowUserService';
+import DeleteUserService from '../../../services/DeleteUserService';
 
 export class UserController {
   async list(request: Request, response: Response): Promise<Response> {

@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
-import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
+import { IScheduleRepository } from '../../schedules/repositories/IScheduleRepository';
+import { SchedulesRepository } from '../../schedules/infra/typeorm/repositories/schedules.repository';
 
 @injectable()
 export default class ValidateScheduleExistsService {

@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { ScheduleRoutes } from '@modules/schedules/infra/http/routes/schedule.routes';
-import { PackagesRoutes } from '@modules/packages/infra/http/routes/packages.routes';
-import { ServiceOrdersRoutes } from '@modules/service-orders/infra/http/routes/service-orders.routes';
-import { UserRoutes } from '@modules/users/infra/http/routes/users.routes';
-import { BarbersRoutes } from '@modules/barbers/infra/http/routes/barbers.routes';
-import { api } from '@config/api';
+import { ScheduleRoutes } from '../../../../modules/schedules/infra/http/routes/schedule.routes';
+import { PackagesRoutes } from '../../../../modules/packages/infra/http/routes/packages.routes';
+import { ServiceOrdersRoutes } from '../../../../modules/service-orders/infra/http/routes/service-orders.routes';
+import { api } from '../../../../config/api';
+import { UserRoutes } from '../../../../modules/users/infra/http/routes/users.routes';
+import { BarbersRoutes } from '../../../../modules/barbers/infra/http/routes/barbers.routes';
 
 const routes = Router();
 

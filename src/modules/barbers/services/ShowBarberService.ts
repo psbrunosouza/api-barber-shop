@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
-import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
-import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
-import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
+import AppError from '../../../shared/errors/AppError';
+import { IBarberDTO } from '../dtos/IBarberDTO';
+import { BarbersRepository } from '../infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '../repositories/IBarberRepository';
 
 @injectable()
 export default class ShowBarberService {

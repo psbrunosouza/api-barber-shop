@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import UpdateScheduleService from '@modules/schedules/services/UpdateScheduleService';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import ShowScheduleService from '@modules/schedules/services/ListScheduleService';
-import CreateScheduleService from '@modules/schedules/services/CreateScheduleService';
+import UpdateScheduleService from '../../../services/UpdateScheduleService';
+import { Schedule } from '../../typeorm/entities/Schedule';
+import ShowScheduleService from '../../../services/ListScheduleService';
+import CreateScheduleService from '../../../services/CreateScheduleService';
 
 class ScheduleController {
   async create(request: Request, response: Response): Promise<Response> {

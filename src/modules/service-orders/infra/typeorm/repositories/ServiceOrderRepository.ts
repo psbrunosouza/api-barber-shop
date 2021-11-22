@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { ServiceOrder } from '../entities/ServiceOrder';
 import { injectable } from 'tsyringe';
-import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
-import { IServiceOrderRepository } from 'modules/service-orders/repositories/IServiceOrderRepository';
+import { IServiceOrderRepository } from '../../../repositories/IServiceOrderRepository';
+import { IServiceOrderDTO } from '../../../dtos/IServiceOrderDTO';
 
 @injectable()
 export class ServiceOrdersRepository implements IServiceOrderRepository {

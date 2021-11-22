@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
-import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
-import { IScheduleRepository } from '@modules/schedules/repositories/IScheduleRepository';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import { SchedulesRepository } from '@modules/schedules/infra/typeorm/repositories/schedules.repository';
-import { User } from '@modules/users/infra/typeorm/entities/User';
+import { IScheduleDTO } from '../dtos/IScheduleDTO';
+import { User } from '../../users/infra/typeorm/entities/User';
+import { IScheduleRepository } from '../repositories/IScheduleRepository';
+import { Schedule } from '../infra/typeorm/entities/Schedule';
+import { SchedulesRepository } from '../infra/typeorm/repositories/schedules.repository';
 
 @injectable()
 export default class CreateScheduleService {

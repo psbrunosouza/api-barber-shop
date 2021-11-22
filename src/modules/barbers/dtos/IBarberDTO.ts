@@ -1,5 +1,5 @@
-import { IUserDTO } from '@modules/users/dtos/IUserDTO';
-import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
+import { IUserDTO } from '../../users/dtos/IUserDTO';
+import { IDefaultDTO } from '../../../shared/dtos/IDefaultDTO';
 
 export interface IBarberDTO extends IDefaultDTO {
   name: string;

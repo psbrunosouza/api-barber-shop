@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
-import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
-import AppError from '@shared/errors/AppError';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-import { IUserRepository } from '@modules/users/repositories/IUserRepository';
-import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
-import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
+import { Barber } from "../infra/typeorm/entities/Barber";
+import AppError from "../../../shared/errors/AppError";
+import { UserRepository } from "../../users/infra/typeorm/repositories/UserRepository";
+import { IUserRepository } from "../../users/repositories/IUserRepository";
+import { BarbersRepository } from "../infra/typeorm/repositories/BarberRepository";
+import { IBarberRepository } from "../repositories/IBarberRepository";
 
 @injectable()
 export default class UpdateBarberService {

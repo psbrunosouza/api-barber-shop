@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
-import UpdateBarberService from '@modules/barbers/services/UpdateBarberService';
-import ShowBarberService from '@modules/barbers/services/ShowBarberService';
-import ListBarbersService from '@modules/barbers/services/ListBarberService';
-import CreateBarberService from '@modules/barbers/services/CreateBarberService';
-import DeleteBarberService from '@modules/barbers/services/DeleteBarberService';
+import UpdateBarberService from '../../../services/UpdateBarberService';
+import ShowBarberService from '../../../services/ShowBarberService';
+import ListBarbersService from '../../../services/ListBarberService';
+import CreateBarberService from '../../../services/CreateBarberService';
+import DeleteBarberService from '../../../services/DeleteBarberService';
 
 class BarberController {
   async list(request: Request, response: Response): Promise<Response> {
