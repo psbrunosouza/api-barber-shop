@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
-import ListServiceOrdersService from '../../../services/ListServiceOrdersByRequestedService';
 import ListServiceOrdersByProviderService from '../../../services/ListServiceOrdersByProviderService';
 import ListServiceOrdersByRequestedService from '../../../services/ListServiceOrdersByRequestedService';
 
