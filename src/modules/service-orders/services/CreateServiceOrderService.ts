@@ -21,7 +21,7 @@ export default class CreateServiceOrdersService {
     id: number,
     serviceOrder: ServiceOrder,
   ): Promise<IServiceOrderDTO> {
-    const scheduleExists = await this.scheduleRepository.findScheduleOwner(id);
+    const scheduleExists = await this.scheduleRepository.findScheduleByOwner(id);
 
     if (!scheduleExists)
       throw new AppError("The User doesn't have a Schedule", 422);

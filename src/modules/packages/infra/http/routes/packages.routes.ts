@@ -1,8 +1,8 @@
 import Router from 'express';
 import { celebrate, Segments } from 'celebrate';
 import PackagesController from '../controllers/PackageController';
-import { PermissionsMiddleware } from "../../../../../shared/middlewares/permissions.middleware";
-import { ensureAuthenticatedMiddleware } from "../../../../../shared/middlewares/ensureAuthenticated.middleware";
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 import packageSchema from '../../../schemas/package.schema';
 
 const PackagesRoutes = Router();

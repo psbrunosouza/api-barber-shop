@@ -5,6 +5,6 @@ export interface IScheduleRepository {
   findScheduleById(id: number): Promise<IScheduleDTO | undefined>;
   delete(id: number): Promise<void>;
   list(): Promise<IScheduleDTO[]>;
-  findScheduleOwner(id: number): Promise<IScheduleDTO | undefined>;
+  findScheduleByOwner(id: number): Promise<IScheduleDTO | undefined>;
   update(id: number, data: IScheduleDTO): Promise<void>;
 }

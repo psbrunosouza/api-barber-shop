@@ -2,6 +2,7 @@ import Router from 'express';
 import { celebrate, Segments } from 'celebrate';
 import BarberController from '../controllers/BarberController';
 import PackageController from '../../../../packages/infra/http/controllers/PackageController';
+import ScheduleController from '../../../../schedules/infra/http/controllers/ScheduleController';
 import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
 import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 import barberSchema from '../../../schemas/barber.schema';
@@ -26,6 +27,12 @@ BarbersRoutes.get(
   '/:id/packages',
   ensureAuthenticatedMiddleware,
   PackageController.list,
+);
+
+BarbersRoutes.get(
+  '/:id/schedule',
+  ensureAuthenticatedMiddleware,
+  ScheduleController.showProviderSchedule,
 );
 
 BarbersRoutes.delete(

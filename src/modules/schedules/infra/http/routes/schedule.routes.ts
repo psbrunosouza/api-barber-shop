@@ -13,6 +13,12 @@ ScheduleRoutes.post(
   ScheduleService.create,
 );
 
+ScheduleRoutes.get(
+  '/:id/schedule',
+  ensureAuthenticatedMiddleware,
+  ScheduleService.showProviderSchedule,
+);
+
 ScheduleRoutes.get('/', ensureAuthenticatedMiddleware, ScheduleService.list);
 
 ScheduleRoutes.put(

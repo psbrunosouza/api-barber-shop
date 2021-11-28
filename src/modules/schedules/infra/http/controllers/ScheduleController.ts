@@ -4,6 +4,7 @@ import UpdateScheduleService from '../../../services/UpdateScheduleService';
 import { Schedule } from '../../typeorm/entities/Schedule';
 import ShowScheduleService from '../../../services/ListScheduleService';
 import CreateScheduleService from '../../../services/CreateScheduleService';
+import ShowScheduleProviderService from '../../../services/ShowProviderScheduleService';
 
 class ScheduleController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -12,6 +13,18 @@ class ScheduleController {
     const createScheduleService = container.resolve(CreateScheduleService);
     const schedule = await createScheduleService.execute(id, data);
     return response.json(schedule);
+  }
+
+  async showProviderSchedule(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const showScheduleProviderService = container.resolve(
+      ShowScheduleProviderService,
+    );
+    const providerSchedule = await showScheduleProviderService.execute(+id);
+    return response.json(providerSchedule);
   }
 
   async list(request: Request, response: Response): Promise<Response> {

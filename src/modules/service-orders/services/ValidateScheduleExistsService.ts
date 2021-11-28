@@ -9,6 +9,6 @@ export default class ValidateScheduleExistsService {
     private scheduleRepository: IScheduleRepository,
   ) {}
   public async execute(id: number): Promise<boolean> {
-    return !!(await this.scheduleRepository.findScheduleOwner(id));
+    return !!(await this.scheduleRepository.findScheduleByOwner(id));
   }
 }

@@ -30,7 +30,7 @@ export class SchedulesRepository implements IScheduleRepository {
     return this.repository.save(data);
   }
 
-  findScheduleOwner(id: number): Promise<IScheduleDTO | undefined> {
+  findScheduleByOwner(id: number): Promise<IScheduleDTO | undefined> {
     return this.repository.findOne({
       where: {
         user: {
