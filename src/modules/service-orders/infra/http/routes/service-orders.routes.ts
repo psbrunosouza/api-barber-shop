@@ -1,6 +1,6 @@
 import Router from 'express';
 import ServiceOrdersController from '../controllers/ServiceOrderController';
-import { ensureAuthenticatedMiddleware } from "../../../../../shared/middlewares/ensureAuthenticated.middleware";
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
 
 const ServiceOrdersRoutes = Router();
 
@@ -11,15 +11,15 @@ ServiceOrdersRoutes.post(
 );
 
 ServiceOrdersRoutes.get(
-  '/',
+  '/byProvider',
   ensureAuthenticatedMiddleware,
-  ServiceOrdersController.list,
+  ServiceOrdersController.listServiceOrdersByProvider,
 );
 
-// ServiceOrdersRoutes.put(
-//   '/:id',
-//   ensureAuthenticatedMiddleware,
-//   ScheduleService.update,
-// );
+ServiceOrdersRoutes.get(
+  '/byRequested',
+  ensureAuthenticatedMiddleware,
+  ServiceOrdersController.listServiceOrdersByRequested,
+);
 
 export { ServiceOrdersRoutes };

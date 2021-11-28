@@ -35,4 +35,24 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
   async update(id: number, data: IServiceOrderDTO): Promise<void> {
     await this.repository.update(id, data);
   }
+
+  listByRequested(id: number): Promise<IServiceOrderDTO[]> {
+    return this.repository.find({
+      where: {
+        requested: {
+          id: id,
+        },
+      },
+    });
+  }
+
+  listByProvider(id: number): Promise<IServiceOrderDTO[]> {
+    return this.repository.find({
+      where: {
+        provider: {
+          id: id,
+        },
+      },
+    });
+  }
 }

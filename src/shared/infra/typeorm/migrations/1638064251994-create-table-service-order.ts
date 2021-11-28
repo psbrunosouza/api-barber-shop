@@ -1,12 +1,17 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export class createRelationTableServiceOrdersPackages1636376468144
+export class createTableServiceOrder1638064251994
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'service_orders_packages',
+        name: 'service_orders',
         columns: [
           {
             name: 'id',
@@ -17,17 +22,30 @@ export class createRelationTableServiceOrdersPackages1636376468144
           },
 
           {
-            name: 'packageId',
+            name: 'requestedId',
             type: 'integer',
             isNullable: false,
             default: null,
           },
 
           {
-            name: 'serviceOrderId',
+            name: 'providerId',
             type: 'integer',
             isNullable: false,
             default: null,
+          },
+
+          {
+            name: 'startDate',
+            type: 'timestamp',
+            default: 'now()',
+            isNullable: false,
+          },
+
+          {
+            name: 'endDate',
+            type: 'timestamp',
+            isNullable: true,
           },
 
           {
@@ -47,21 +65,20 @@ export class createRelationTableServiceOrdersPackages1636376468144
             isNullable: true,
           },
         ],
-
         foreignKeys: [
           {
-            name: 'fk_packageId',
-            columnNames: ['packageId'],
+            name: 'fk_requestedId',
+            columnNames: ['requestedId'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'packages',
+            referencedTableName: 'users',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
           {
-            name: 'fk_serviceOrders',
-            columnNames: ['serviceOrderId'],
+            name: 'fk_providerId',
+            columnNames: ['providerId'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'service_orders',
+            referencedTableName: 'barbers',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
@@ -71,11 +88,6 @@ export class createRelationTableServiceOrdersPackages1636376468144
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey(
-      'service_orders_packages',
-      'fk_serviceOrders',
-    );
-    await queryRunner.dropForeignKey('service_orders_packages', 'fk_packageId');
-    await queryRunner.dropTable('service_orders_packages');
+    await queryRunner.dropTable('service_orders');
   }
 }
