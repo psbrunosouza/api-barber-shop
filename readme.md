@@ -26,3 +26,6 @@
 <code>npm migration:run</code> ou <code>yarn migration:run</code>
 <p>4 - inicie a aplicação</p>
 <code>npm run dev:server</code> ou <code>yarn dev:server</code>
+
+ ## 📝 Licença 
+ Este projeto codigo fonte está sob uma licensa MIT. Confira a licença para mais informações.
