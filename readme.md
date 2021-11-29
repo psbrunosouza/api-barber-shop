@@ -23,7 +23,7 @@
 <p>2 - Instale as depêndencias</p>
 <code>npm i</code> ou <code>yarn</code>
 <p>3 - Rode as migrations</p>
-<code>npm migration:run</code> ou <code>yarn migration:run</code>
+<code>npm run typeorm migration:run</code> ou <code>yarn typeorm migration:run</code>
 <p>4 - inicie a aplicação</p>
 <code>npm run dev:server</code> ou <code>yarn dev:server</code>
 
