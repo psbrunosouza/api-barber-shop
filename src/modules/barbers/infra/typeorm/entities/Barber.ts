@@ -18,6 +18,9 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
   name: string;
 
   @Column()
+  description: string;
+
+  @Column()
   email: string;
 
   @Column()
@@ -37,6 +40,15 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
 
   @Column()
   streetNumber: string;
+
+  @Column()
+  average: number;
+
+  @Column()
+  start_date: Date;
+
+  @Column()
+  end_date: Date;
 
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'userId' })
