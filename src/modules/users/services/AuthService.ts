@@ -1,12 +1,12 @@
 import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
-import { auth } from '@config/auth';
-import { IUserRepository } from '@modules/users/repositories/IUserRepository';
-import { BarbersRepository } from '@modules/barbers/infra/typeorm/repositories/BarberRepository';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-import AppError from '@shared/errors/AppError';
-import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
+import AppError from '../../../shared/errors/AppError';
+import { UserRepository } from '../infra/typeorm/repositories/UserRepository';
+import { auth } from '../../../config/auth';
+import { IUserRepository } from '../repositories/IUserRepository';
+import { BarbersRepository } from '../../barbers/infra/typeorm/repositories/BarberRepository';
+import { IBarberRepository } from '../../barbers/repositories/IBarberRepository';
 
 interface IAuthServiceDTO {
   email: string;

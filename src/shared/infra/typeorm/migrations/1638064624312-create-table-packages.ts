@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class createTablePackages1635880313565 implements MigrationInterface {
+export class createTablePackages1638064624312 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -60,7 +60,6 @@ export class createTablePackages1635880313565 implements MigrationInterface {
         onUpdate: 'CASCADE',
       }),
     );
-
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

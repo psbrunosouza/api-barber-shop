@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateServiceOrdersService from '@modules/service-orders/services/CreateServiceOrderService';
-import ListServiceOrdersService from '@modules/service-orders/services/ListServiceOrderService';
-import ValidateScheduleExistsService from '@modules/service-orders/services/ValidateScheduleExistsService';
+import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
+import ListServiceOrdersByProviderService from '../../../services/ListServiceOrdersByProviderService';
+import ListServiceOrdersByRequestedService from '../../../services/ListServiceOrdersByRequestedService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -14,26 +14,35 @@ class ServiceOrdersController {
     return response.json(await createServiceOrderService.execute(id, data));
   }
 
-  async list(request: Request, response: Response): Promise<Response> {
+  async listServiceOrdersByRequested(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
     const userId = request.userId;
 
     const listServiceOrdersService = container.resolve(
-      ListServiceOrdersService,
+      ListServiceOrdersByRequestedService,
     );
 
-    const validateScheduleExistsService = container.resolve(
-      ValidateScheduleExistsService,
+    const serviceOrders = await listServiceOrdersService.execute(userId);
+
+    return response.json(serviceOrders);
+  }
+
+  async listServiceOrdersByProvider(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const barberId = request.barberId;
+
+    const listServiceOrdersByProviderService = container.resolve(
+      ListServiceOrdersByProviderService,
     );
 
-    const scheduleExists = validateScheduleExistsService.execute(userId);
-
-    if (!scheduleExists) {
-      return response
-        .status(422)
-        .json({ error: "You doesn't have a Schedule" });
-    }
-
-    return response.json(await listServiceOrdersService.execute());
+    const serviceOrders = await listServiceOrdersByProviderService.execute(
+      barberId,
+    );
+    return response.json(serviceOrders);
   }
 }
 

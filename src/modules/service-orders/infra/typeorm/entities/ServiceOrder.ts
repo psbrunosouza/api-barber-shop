@@ -7,11 +7,11 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
 } from 'typeorm';
-import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { Schedule } from '@modules/schedules/infra/typeorm/entities/Schedule';
-import { Package } from '@modules/packages/infra/typeorm/entities/Package';
-import { IScheduleDTO } from '@modules/schedules/dtos/IScheduleDTO';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { Package } from '../../../../packages/infra/typeorm/entities/Package';
+import { IServiceOrderDTO } from '../../../dtos/IServiceOrderDTO';
+import { Barber } from '../../../../barbers/infra/typeorm/entities/Barber';
+import { User } from '../../../../users/infra/typeorm/entities/User';
 
 @Entity('service_orders')
 export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
@@ -38,11 +38,11 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   })
   packages: Package[];
 
-  @ManyToOne(() => Schedule, { eager: true })
+  @ManyToOne(() => Barber, { eager: true })
   @JoinColumn({ name: 'providerId' })
-  provider: Schedule;
+  provider: Barber;
 
-  @ManyToOne(() => Schedule, { eager: true })
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'requestedId' })
-  requested: Schedule;
+  requested: User;
 }

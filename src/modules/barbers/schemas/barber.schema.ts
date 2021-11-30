@@ -10,6 +10,10 @@ const barberSchema = Joi.object({
   city: Joi.string().required(),
   streetNumber: Joi.string(),
   user: Joi.object().required(),
+  description: Joi.allow(null),
+  startDate: Joi.allow(null),
+  endDate: Joi.allow(null),
+  average: Joi.allow(null),
 });
 
 export default barberSchema.options({

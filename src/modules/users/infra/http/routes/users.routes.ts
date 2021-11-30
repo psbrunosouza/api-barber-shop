@@ -1,9 +1,9 @@
 import Router from 'express';
 import { celebrate, Segments } from 'celebrate';
-import { PermissionsMiddleware } from '@shared/middlewares/permissions.middleware';
-import { ensureAuthenticatedMiddleware } from '@shared/middlewares/ensureAuthenticated.middleware';
-import { UserController } from '@modules/users/infra/http/controllers/UserController';
-import userSchema from '@modules/users/schemas/user.schema';
+import { PermissionsMiddleware } from '../../../../../shared/middlewares/permissions.middleware';
+import { ensureAuthenticatedMiddleware } from '../../../../../shared/middlewares/ensureAuthenticated.middleware';
+import { UserController } from '../controllers/UserController';
+import userSchema from '../../../schemas/user.schema';
 
 const UserRoutes = Router();
 

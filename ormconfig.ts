@@ -1,4 +1,4 @@
-import { database } from '@config/database';
+import { database } from './src/config/database';
 
 module.exports = {
   type: 'postgres',

@@ -5,9 +5,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from '@modules/users/infra/typeorm/entities/User';
-import { DefaultEntity } from '@shared/infra/typeorm/entities/DefaultEntity';
-import { IDefaultDTO } from '@shared/dtos/IDefaultDTO';
+import { User } from '../../../../users/infra/typeorm/entities/User';
+import { DefaultEntity } from '../../../../../shared/infra/typeorm/entities/DefaultEntity';
+import { IDefaultDTO } from '../../../../../shared/dtos/IDefaultDTO';
 
 @Entity('barbers')
 export class Barber extends DefaultEntity implements IDefaultDTO {
@@ -16,6 +16,9 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
 
   @Column()
   name: string;
+
+  @Column()
+  description: string;
 
   @Column()
   email: string;
@@ -37,6 +40,15 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
 
   @Column()
   streetNumber: string;
+
+  @Column()
+  average: number;
+
+  @Column()
+  start_date: Date;
+
+  @Column()
+  end_date: Date;
 
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'userId' })

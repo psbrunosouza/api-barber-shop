@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { ServiceOrder } from '../entities/ServiceOrder';
 import { injectable } from 'tsyringe';
-import { IServiceOrderDTO } from 'modules/service-orders/dtos/IServiceOrderDTO';
-import { IServiceOrderRepository } from 'modules/service-orders/repositories/IServiceOrderRepository';
+import { IServiceOrderRepository } from '../../../repositories/IServiceOrderRepository';
+import { IServiceOrderDTO } from '../../../dtos/IServiceOrderDTO';
 
 @injectable()
 export class ServiceOrdersRepository implements IServiceOrderRepository {
@@ -34,5 +34,25 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
 
   async update(id: number, data: IServiceOrderDTO): Promise<void> {
     await this.repository.update(id, data);
+  }
+
+  listByRequested(id: number): Promise<IServiceOrderDTO[]> {
+    return this.repository.find({
+      where: {
+        requested: {
+          id: id,
+        },
+      },
+    });
+  }
+
+  listByProvider(id: number): Promise<IServiceOrderDTO[]> {
+    return this.repository.find({
+      where: {
+        provider: {
+          id: id,
+        },
+      },
+    });
   }
 }

@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
-import { Barber } from '@modules/barbers/infra/typeorm/entities/Barber';
-import AppError from '@shared/errors/AppError';
-import { IPackageRepository } from '@modules/packages/repositories/IPackageRepository';
-import { PackagesRepository } from '@modules/packages/infra/typeorm/repositories/PackageRepository';
-import { Package } from '@modules/packages/infra/typeorm/entities/Package';
+import { Barber } from '../../barbers/infra/typeorm/entities/Barber';
+import AppError from '../../../shared/errors/AppError';
+import { IPackageRepository } from '../repositories/IPackageRepository';
+import { PackagesRepository } from '../infra/typeorm/repositories/PackageRepository';
+import { Package } from '../infra/typeorm/entities/Package';
 
 @injectable()
 export class UpdatePackageService {

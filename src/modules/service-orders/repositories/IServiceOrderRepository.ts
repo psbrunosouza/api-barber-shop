@@ -7,4 +7,6 @@ export interface IServiceOrderRepository {
   list(): Promise<IServiceOrderDTO[]>;
   findByOwner(id: number): Promise<IServiceOrderDTO | undefined>;
   update(id: number, data: IServiceOrderDTO): Promise<void>;
+  listByRequested(id: number): Promise<IServiceOrderDTO[]>;
+  listByProvider(id: number): Promise<IServiceOrderDTO[]>;
 }

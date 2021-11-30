@@ -1,8 +1,8 @@
 import { getRepository, Repository } from 'typeorm';
 import { Barber } from '../entities/Barber';
 import { injectable } from 'tsyringe';
-import { IBarberDTO } from '@modules/barbers/dtos/IBarberDTO';
-import { IBarberRepository } from '@modules/barbers/repositories/IBarberRepository';
+import { IBarberDTO } from '../../../dtos/IBarberDTO';
+import { IBarberRepository } from '../../../repositories/IBarberRepository';
 
 @injectable()
 export class BarbersRepository implements IBarberRepository {

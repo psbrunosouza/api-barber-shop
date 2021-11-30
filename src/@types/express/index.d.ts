@@ -1,4 +1,4 @@
-import ITokenDTO from '@shared/dtos/ITokenDTO';
+import ITokenDTO from '../../shared/dtos/ITokenDTO';
 
 declare global {
   namespace Express {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-import AppError from '@shared/errors/AppError';
+import AppError from '../errors/AppError';
+import { UserRepository } from '../../modules/users/infra/typeorm/repositories/UserRepository';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const PermissionsMiddleware = (

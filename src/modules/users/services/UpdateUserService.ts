@@ -1,10 +1,9 @@
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
-import { IUserRepository } from '@modules/users/repositories/IUserRepository';
-import AppError from '@shared/errors/AppError';
-import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-import { User } from '@modules/users/infra/typeorm/entities/User';
-import { IUserDTO } from "@modules/users/dtos/IUserDTO";
+import AppError from '../../../shared/errors/AppError';
+import { UserRepository } from '../infra/typeorm/repositories/UserRepository';
+import { User } from '../infra/typeorm/entities/User';
+import { IUserRepository } from '../repositories/IUserRepository';
 
 @injectable()
 export default class UpdateUserService {

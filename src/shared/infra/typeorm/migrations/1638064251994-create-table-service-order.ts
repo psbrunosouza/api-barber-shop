@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class createTableServiceOrder1635876893348
+export class createTableServiceOrder1638064251994
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -65,37 +65,29 @@ export class createTableServiceOrder1635876893348
             isNullable: true,
           },
         ],
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'service_orders',
-      new TableForeignKey({
-        name: 'fk_providerId',
-        columnNames: ['providerId'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'schedules',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'service_orders',
-      new TableForeignKey({
-        name: 'fk_requestedId',
-        columnNames: ['requestedId'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'schedules',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        foreignKeys: [
+          {
+            name: 'fk_requestedId',
+            columnNames: ['requestedId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'users',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'fk_providerId',
+            columnNames: ['providerId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'barbers',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('service_orders', 'fk_requestedId');
-    await queryRunner.dropForeignKey('service_orders', 'fk_providerId');
     await queryRunner.dropTable('service_orders');
   }
 }
