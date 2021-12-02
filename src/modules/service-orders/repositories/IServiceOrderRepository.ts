@@ -9,4 +9,5 @@ export interface IServiceOrderRepository {
   update(id: number, data: IServiceOrderDTO): Promise<void>;
   listByRequested(id: number): Promise<IServiceOrderDTO[]>;
   listByProvider(id: number): Promise<IServiceOrderDTO[]>;
+  validateServiceTime(id: number, data: IServiceOrderDTO): Promise<boolean>;
 }

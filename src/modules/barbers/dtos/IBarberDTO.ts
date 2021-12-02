@@ -11,8 +11,8 @@ export interface IBarberDTO extends IDefaultDTO {
   state: string;
   city: string;
   streetNumber: string;
-  end_date: Date;
-  start_date: Date;
-  average: number;
+  opening_hour: number;
+  closing_hour: number;
+  average_time: number;
   user: IUserDTO;
 }

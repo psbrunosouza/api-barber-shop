@@ -3,6 +3,8 @@ import { container } from 'tsyringe';
 import CreateServiceOrdersService from '../../../services/CreateServiceOrderService';
 import ListServiceOrdersByProviderService from '../../../services/ListServiceOrdersByProviderService';
 import ListServiceOrdersByRequestedService from '../../../services/ListServiceOrdersByRequestedService';
+import ValidateServiceTimeService from '../../../services/ValidateServiceTimeService';
+import AppError from '../../../../../shared/errors/AppError';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -11,6 +13,14 @@ class ServiceOrdersController {
     const createServiceOrderService = container.resolve(
       CreateServiceOrdersService,
     );
+
+    const validateServiceTimeService = container.resolve(
+      ValidateServiceTimeService,
+    );
+
+    if (!(await validateServiceTimeService.execute(data.provider.id, data)))
+      throw new AppError('Attendance time out of service time operation');
+
     return response.json(await createServiceOrderService.execute(id, data));
   }
 

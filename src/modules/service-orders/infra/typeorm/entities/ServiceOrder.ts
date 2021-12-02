@@ -19,10 +19,10 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   id: number;
 
   @Column('date')
-  startDate: Date;
+  initial_service_time: Date;
 
   @Column('date')
-  endDate: Date;
+  final_service_time: Date;
 
   @ManyToMany(() => Package, { eager: true })
   @JoinTable({

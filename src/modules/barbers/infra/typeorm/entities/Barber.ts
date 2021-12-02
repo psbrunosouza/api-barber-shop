@@ -42,13 +42,13 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
   streetNumber: string;
 
   @Column()
-  average: number;
+  average_time: number;
 
   @Column()
-  start_date: Date;
+  opening_hour: number;
 
   @Column()
-  end_date: Date;
+  closing_hour: number;
 
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'userId' })
