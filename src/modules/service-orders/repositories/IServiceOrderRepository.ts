@@ -10,4 +10,8 @@ export interface IServiceOrderRepository {
   listByRequested(id: number): Promise<IServiceOrderDTO[]>;
   listByProvider(id: number): Promise<IServiceOrderDTO[]>;
   validateServiceTime(id: number, data: IServiceOrderDTO): Promise<boolean>;
+  validateServiceAtSameTime(
+    id: number,
+    data: IServiceOrderDTO,
+  ): Promise<boolean>;
 }

@@ -4,12 +4,18 @@ import { IServiceOrderRepository } from '../repositories/IServiceOrderRepository
 import { IServiceOrderDTO } from '../dtos/IServiceOrderDTO';
 
 @injectable()
-export default class ValidateServiceAtSameTime {
+export default class ValidateServiceAtSameTimeService {
   constructor(
     @inject(ServiceOrdersRepository)
     private serviceOrderRepository: IServiceOrderRepository,
   ) {}
-  public async execute(id: number): Promise<IServiceOrderDTO[]> {
-    return this.serviceOrderRepository.listByRequested(id);
+  public async execute(
+    id: number,
+    service_order: IServiceOrderDTO,
+  ): Promise<boolean> {
+    return this.serviceOrderRepository.validateServiceAtSameTime(
+      id,
+      service_order,
+    );
   }
 }

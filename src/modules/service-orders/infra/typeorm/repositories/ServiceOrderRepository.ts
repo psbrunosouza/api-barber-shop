@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, JoinColumn } from 'typeorm';
 import { ServiceOrder } from '../entities/ServiceOrder';
 import { injectable } from 'tsyringe';
 import { IServiceOrderRepository } from '../../../repositories/IServiceOrderRepository';
@@ -11,22 +11,28 @@ import { parseISO } from 'date-fns';
 export class ServiceOrdersRepository implements IServiceOrderRepository {
   private repository: Repository<ServiceOrder>;
   private barberRepository: Repository<Barber>;
+
   constructor() {
     this.repository = getRepository(ServiceOrder);
     this.barberRepository = getRepository(Barber);
   }
+
   save(data: IServiceOrderDTO): Promise<IServiceOrderDTO> {
     return this.repository.save(data);
   }
+
   findById(id: number): Promise<IServiceOrderDTO | undefined> {
     return this.repository.findOne({ where: { id } });
   }
+
   async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
+
   list(): Promise<IServiceOrderDTO[]> {
     return this.repository.find();
   }
+
   findByOwner(id: number): Promise<IServiceOrderDTO | undefined> {
     return this.repository.findOne({
       where: {
@@ -84,5 +90,24 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
         },
       )
       .getOne());
+  }
+
+  async validateServiceAtSameTime(
+    id: number,
+    data: IServiceOrderDTO,
+  ): Promise<boolean> {
+    return !!(await this.repository
+      .createQueryBuilder('service_order')
+      .innerJoinAndSelect('service_order.provider', 'barber')
+      .where('barber.id = :id', { id })
+      .andWhere(
+        `:initial_service_time_provided  >= service_order.initial_service_time `,
+        { initial_service_time_provided: data.initial_service_time },
+      )
+      .andWhere(
+        `:initial_service_time_provided <= service_order.final_service_time`,
+        { initial_service_time_provided: data.initial_service_time },
+      )
+      .getMany());
   }
 }

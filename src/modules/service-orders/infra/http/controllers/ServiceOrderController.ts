@@ -5,6 +5,7 @@ import ListServiceOrdersByProviderService from '../../../services/ListServiceOrd
 import ListServiceOrdersByRequestedService from '../../../services/ListServiceOrdersByRequestedService';
 import ValidateServiceTimeService from '../../../services/ValidateServiceTimeService';
 import AppError from '../../../../../shared/errors/AppError';
+import ValidateServiceAtSameTimeService from '../../../services/ValidateServiceAtSameTimeService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -17,6 +18,15 @@ class ServiceOrdersController {
     const validateServiceTimeService = container.resolve(
       ValidateServiceTimeService,
     );
+
+    const validateServiceAtSameTimeService = container.resolve(
+      ValidateServiceAtSameTimeService,
+    );
+    if (await validateServiceAtSameTimeService.execute(id, data))
+      throw new AppError(
+        'there is a service scheduled at the selected time',
+        401,
+      );
 
     if (!(await validateServiceTimeService.execute(data.provider.id, data)))
       throw new AppError('Attendance time out of service time operation');
