@@ -24,6 +24,9 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   @Column('date')
   final_service_time: Date;
 
+  @Column()
+  status: 'concluded' | 'pending' | 'canceled';
+
   @ManyToMany(() => Package, { eager: true })
   @JoinTable({
     name: 'service_orders_packages',

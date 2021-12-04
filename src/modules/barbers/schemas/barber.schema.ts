@@ -14,6 +14,7 @@ const barberSchema = Joi.object({
   opening_hour: Joi.number().required(),
   closing_hour: Joi.number().required(),
   average_time: Joi.number().required(),
+  image: Joi.string().allow(null),
 });
 
 export default barberSchema.options({

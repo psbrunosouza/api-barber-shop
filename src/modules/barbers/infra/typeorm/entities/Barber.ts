@@ -50,6 +50,9 @@ export class Barber extends DefaultEntity implements IDefaultDTO {
   @Column()
   closing_hour: number;
 
+  @Column()
+  image: string;
+
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'userId' })
   user: User;

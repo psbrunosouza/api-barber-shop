@@ -6,6 +6,7 @@ const serviceOrderSchema = Joi.object({
   initial_service_time: Joi.date().required(),
   final_service_time: Joi.date().required(),
   packages: Joi.array().allow(null),
+  status: Joi.string().required(),
 });
 
 export default serviceOrderSchema.options({

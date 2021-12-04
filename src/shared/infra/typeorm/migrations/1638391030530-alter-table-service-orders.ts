@@ -15,6 +15,11 @@ export class alterTableServiceOrders1638391030530
         type: 'timestamp',
         isNullable: false,
       }),
+      new TableColumn({
+        name: 'status',
+        type: 'varchar',
+        isNullable: false,
+      }),
     ]);
   }
 
@@ -22,6 +27,7 @@ export class alterTableServiceOrders1638391030530
     await queryRunner.dropColumns('service_orders', [
       'initial_service_time',
       'final_service_time',
+      'status',
     ]);
   }
 }

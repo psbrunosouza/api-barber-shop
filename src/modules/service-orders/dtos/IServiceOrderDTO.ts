@@ -8,5 +8,6 @@ export interface IServiceOrderDTO extends IDefaultDTO {
   provider: IBarberDTO;
   initial_service_time: Date;
   final_service_time: Date;
+  status: 'concluded' | 'pending' | 'canceled';
   packages: Package[];
 }

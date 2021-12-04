@@ -23,7 +23,11 @@ export class alterTableBarbers1638134634767 implements MigrationInterface {
         type: 'integer',
         isNullable: true,
       }),
-
+      new TableColumn({
+        name: 'image',
+        type: 'varchar',
+        isNullable: true,
+      }),
     ]);
   }
 
@@ -33,6 +37,7 @@ export class alterTableBarbers1638134634767 implements MigrationInterface {
       'closing_hour',
       'opening_hour',
       'description',
+      'image',
     ]);
   }
 }

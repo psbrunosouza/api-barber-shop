@@ -15,4 +15,5 @@ export interface IBarberDTO extends IDefaultDTO {
   closing_hour: number;
   average_time: number;
   user: IUserDTO;
+  image: string;
 }
