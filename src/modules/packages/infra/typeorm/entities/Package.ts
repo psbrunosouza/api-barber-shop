@@ -23,6 +23,15 @@ export class Package extends DefaultEntity implements IPackageDTO {
   @Column()
   description: string;
 
+  @Column()
+  image: string;
+
+  @Column()
+  time: number;
+
+  @Column()
+  tag: string;
+
   @ManyToOne(() => Barber, { eager: true })
   @JoinColumn()
   barber: Barber;

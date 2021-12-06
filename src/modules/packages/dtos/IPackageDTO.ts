@@ -6,4 +6,7 @@ export interface IPackageDTO extends IDefaultDTO {
   value: number;
   description: string;
   barber: Barber;
+  tag: string;
+  time: number;
+  image: string;
 }
