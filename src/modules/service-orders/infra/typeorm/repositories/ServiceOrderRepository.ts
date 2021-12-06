@@ -108,6 +108,7 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
         `:initial_service_time_provided <= service_order.final_service_time`,
         { initial_service_time_provided: data.initial_service_time },
       )
+      .andWhere("service_order.status = 'pending'", { status: data.status })
       .getMany());
   }
 }
