@@ -14,6 +14,7 @@ class BarberController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const data = request.body;
+    console.log(data);
     const barbersService = container.resolve(CreateBarberService);
     return response.json(await barbersService.execute(data));
   }

@@ -4,22 +4,27 @@ export class alterTableBarbers1638134634767 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumns('barbers', [
       new TableColumn({
-        name: 'average',
+        name: 'description',
+        type: 'varchar',
+        isNullable: true,
+      }),
+      new TableColumn({
+        name: 'average_time',
         type: 'integer',
         isNullable: true,
       }),
       new TableColumn({
-        name: 'start_date',
-        type: 'timestamp',
+        name: 'opening_hour',
+        type: 'integer',
         isNullable: true,
       }),
       new TableColumn({
-        name: 'end_date',
-        type: 'timestamp',
+        name: 'closing_hour',
+        type: 'integer',
         isNullable: true,
       }),
       new TableColumn({
-        name: 'description',
+        name: 'image',
         type: 'varchar',
         isNullable: true,
       }),
@@ -28,9 +33,11 @@ export class alterTableBarbers1638134634767 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropColumns('barbers', [
-      'average',
-      'start_date',
-      'end_date',
+      'average_time',
+      'closing_hour',
+      'opening_hour',
+      'description',
+      'image',
     ]);
   }
 }
