@@ -47,12 +47,13 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
     await this.repository.update(id, data);
   }
 
-  listByRequested(id: number): Promise<IServiceOrderDTO[]> {
+  listByRequested(id: number, query?: string): Promise<IServiceOrderDTO[]> {
     return this.repository.find({
       where: {
         requested: {
           id: id,
         },
+        status: query,
       },
     });
   }

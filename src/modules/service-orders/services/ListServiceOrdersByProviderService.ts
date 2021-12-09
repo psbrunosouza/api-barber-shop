@@ -9,7 +9,10 @@ export default class ListServiceOrdersByProviderService {
     @inject(ServiceOrdersRepository)
     private serviceOrderRepository: IServiceOrderRepository,
   ) {}
-  public async execute(id: number): Promise<IServiceOrderDTO[]> {
-    return this.serviceOrderRepository.listByProvider(id);
+  public async execute(
+    id: number,
+    query?: string | undefined,
+  ): Promise<IServiceOrderDTO[]> {
+    return this.serviceOrderRepository.listByProvider(id, query);
   }
 }

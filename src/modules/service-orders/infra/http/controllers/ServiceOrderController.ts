@@ -53,14 +53,16 @@ class ServiceOrdersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const barberId = request.barberId;
+    const { id } = request.params;
+    const status = String(request.query.status);
 
     const listServiceOrdersByProviderService = container.resolve(
       ListServiceOrdersByProviderService,
     );
 
     const serviceOrders = await listServiceOrdersByProviderService.execute(
-      barberId,
+      +id,
+      status,
     );
     return response.json(serviceOrders);
   }

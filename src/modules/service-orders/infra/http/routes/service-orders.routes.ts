@@ -14,7 +14,7 @@ ServiceOrdersRoutes.post(
 );
 
 ServiceOrdersRoutes.get(
-  '/byProvider',
+  '/byProvider/:id',
   ensureAuthenticatedMiddleware,
   ServiceOrdersController.listServiceOrdersByProvider,
 );
