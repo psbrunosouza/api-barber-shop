@@ -97,12 +97,12 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
     id: number,
     data: IServiceOrderDTO,
   ): Promise<boolean> {
-    return !!(await this.repository
+    const serviceOrders = await this.repository
       .createQueryBuilder('service_order')
       .innerJoinAndSelect('service_order.provider', 'barber')
       .where('barber.id = :id', { id })
       .andWhere(
-        `:initial_service_time_provided  >= service_order.initial_service_time `,
+        `:initial_service_time_provided  >= service_order.initial_service_time`,
         { initial_service_time_provided: data.initial_service_time },
       )
       .andWhere(
@@ -110,6 +110,8 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
         { initial_service_time_provided: data.initial_service_time },
       )
       .andWhere("service_order.status = 'pending'", { status: data.status })
-      .getMany());
+      .getMany();
+
+    return serviceOrders.length > 0;
   }
 }

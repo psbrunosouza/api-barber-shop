@@ -18,10 +18,10 @@ export class ServiceOrder extends DefaultEntity implements IServiceOrderDTO {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('date')
+  @Column('timestamp')
   initial_service_time: Date;
 
-  @Column('date')
+  @Column('timestamp')
   final_service_time: Date;
 
   @Column()
