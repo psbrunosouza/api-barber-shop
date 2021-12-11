@@ -22,6 +22,9 @@ class ServiceOrdersController {
     const validateServiceAtSameTimeService = container.resolve(
       ValidateServiceAtSameTimeService,
     );
+
+    console.log(await validateServiceAtSameTimeService.execute(id, data));
+
     if (await validateServiceAtSameTimeService.execute(id, data))
       throw new AppError(
         'there is a service scheduled at the selected time',

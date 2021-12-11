@@ -102,11 +102,8 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
       .innerJoinAndSelect('service_order.provider', 'barber')
       .where('barber.id = :id', { id })
       .andWhere(
-        `:initial_service_time_provided  >= service_order.initial_service_time`,
-        { initial_service_time_provided: data.initial_service_time },
-      )
-      .andWhere(
-        `:initial_service_time_provided <= service_order.final_service_time`,
+        `(:initial_service_time_provided  >= service_order.initial_service_time)
+        AND (:initial_service_time_provided <= service_order.final_service_time)`,
         { initial_service_time_provided: data.initial_service_time },
       )
       .andWhere("service_order.status = 'pending'", { status: data.status })
