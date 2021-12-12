@@ -23,8 +23,6 @@ class ServiceOrdersController {
       ValidateServiceAtSameTimeService,
     );
 
-    console.log(await validateServiceAtSameTimeService.execute(id, data));
-
     if (await validateServiceAtSameTimeService.execute(id, data))
       throw new AppError(
         'there is a service scheduled at the selected time',
@@ -42,7 +40,6 @@ class ServiceOrdersController {
     response: Response,
   ): Promise<Response> {
     const userId = request.userId;
-
     const listServiceOrdersService = container.resolve(
       ListServiceOrdersByRequestedService,
     );
@@ -57,7 +54,7 @@ class ServiceOrdersController {
     response: Response,
   ): Promise<Response> {
     const { id } = request.params;
-    const status = String(request.query.status);
+    const status = request.query.status;
 
     const listServiceOrdersByProviderService = container.resolve(
       ListServiceOrdersByProviderService,
@@ -65,7 +62,7 @@ class ServiceOrdersController {
 
     const serviceOrders = await listServiceOrdersByProviderService.execute(
       +id,
-      status,
+      status as string,
     );
     return response.json(serviceOrders);
   }
