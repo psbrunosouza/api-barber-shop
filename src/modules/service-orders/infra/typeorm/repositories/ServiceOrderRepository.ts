@@ -47,25 +47,31 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
     await this.repository.update(id, data);
   }
 
-  listByRequested(id: number, query?: string): Promise<IServiceOrderDTO[]> {
+  listByRequested(id: number): Promise<IServiceOrderDTO[]> {
     return this.repository.find({
       where: {
         requested: {
           id: id,
         },
-        status: query,
       },
     });
   }
 
-  listByProvider(id: number): Promise<IServiceOrderDTO[]> {
-    return this.repository.find({
-      where: {
-        provider: {
-          id: id,
+  listByProvider(id: number, query?: string): Promise<IServiceOrderDTO[]> {
+    if (query !== 'undefined' && query !== undefined) {
+      return this.repository.find({
+        where: {
+          provider: { id: id },
+          status: query,
         },
-      },
-    });
+      });
+    } else {
+      return this.repository.find({
+        where: {
+          provider: { id: id },
+        },
+      });
+    }
   }
 
   async validateServiceTime(

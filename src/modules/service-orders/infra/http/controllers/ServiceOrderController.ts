@@ -6,6 +6,8 @@ import ListServiceOrdersByRequestedService from '../../../services/ListServiceOr
 import ValidateServiceTimeService from '../../../services/ValidateServiceTimeService';
 import AppError from '../../../../../shared/errors/AppError';
 import ValidateServiceAtSameTimeService from '../../../services/ValidateServiceAtSameTimeService';
+import ConfirmAttendanceService from '../../../services/ConfirmAttendanceService';
+import CancelAttendanceService from '../../../services/CancelAttendanceService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -22,8 +24,6 @@ class ServiceOrdersController {
     const validateServiceAtSameTimeService = container.resolve(
       ValidateServiceAtSameTimeService,
     );
-
-    console.log(await validateServiceAtSameTimeService.execute(id, data));
 
     if (await validateServiceAtSameTimeService.execute(id, data))
       throw new AppError(
@@ -42,7 +42,6 @@ class ServiceOrdersController {
     response: Response,
   ): Promise<Response> {
     const userId = request.userId;
-
     const listServiceOrdersService = container.resolve(
       ListServiceOrdersByRequestedService,
     );
@@ -57,7 +56,7 @@ class ServiceOrdersController {
     response: Response,
   ): Promise<Response> {
     const { id } = request.params;
-    const status = String(request.query.status);
+    const status = request.query.status;
 
     const listServiceOrdersByProviderService = container.resolve(
       ListServiceOrdersByProviderService,
@@ -65,9 +64,27 @@ class ServiceOrdersController {
 
     const serviceOrders = await listServiceOrdersByProviderService.execute(
       +id,
-      status,
+      status as string,
     );
     return response.json(serviceOrders);
+  }
+
+  async confirmStatus(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const confirmAttendanceService = container.resolve(
+      ConfirmAttendanceService,
+    );
+
+    return response.json(await confirmAttendanceService.execute(+id));
+  }
+
+  async cancelStatus(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const cancelAttendanceService = container.resolve(CancelAttendanceService);
+
+    return response.json(await cancelAttendanceService.execute(+id));
   }
 }
 

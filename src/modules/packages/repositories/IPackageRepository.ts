@@ -8,4 +8,5 @@ export interface IPackageRepository {
   findOwner(ownerId: number): Promise<IPackageDTO | undefined>;
   listByOwner(barberId: number): Promise<IPackageDTO[]>;
   update(id: number, data: IPackageDTO): Promise<void>;
+  offeredServices(barberId: number): Promise<number>;
 }
