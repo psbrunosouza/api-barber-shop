@@ -51,4 +51,16 @@ export class PackagesRepository implements IPackageRepository {
   save(data: IPackageDTO): Promise<IPackageDTO> {
     return this.repository.save(data);
   }
+
+  async offeredServices(barberId: number): Promise<number> {
+    const offeredServices = await this.repository.find({
+      where: {
+        barber: {
+          id: barberId,
+        },
+      },
+    });
+
+    return offeredServices.length;
+  }
 }

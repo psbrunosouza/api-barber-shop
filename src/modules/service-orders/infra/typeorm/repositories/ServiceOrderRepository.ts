@@ -58,7 +58,7 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
   }
 
   listByProvider(id: number, query?: string): Promise<IServiceOrderDTO[]> {
-    if (query !== 'undefined') {
+    if (query !== 'undefined' && query !== undefined) {
       return this.repository.find({
         where: {
           provider: { id: id },
