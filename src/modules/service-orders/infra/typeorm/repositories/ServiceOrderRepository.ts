@@ -57,14 +57,21 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
     });
   }
 
-  listByProvider(id: number): Promise<IServiceOrderDTO[]> {
-    return this.repository.find({
-      where: {
-        provider: {
-          id: id,
+  listByProvider(id: number, query?: string): Promise<IServiceOrderDTO[]> {
+    if (query !== 'undefined' && query !== undefined) {
+      return this.repository.find({
+        where: {
+          provider: { id: id },
+          status: query,
         },
-      },
-    });
+      });
+    } else {
+      return this.repository.find({
+        where: {
+          provider: { id: id },
+        },
+      });
+    }
   }
 
   async validateServiceTime(
@@ -96,19 +103,18 @@ export class ServiceOrdersRepository implements IServiceOrderRepository {
     id: number,
     data: IServiceOrderDTO,
   ): Promise<boolean> {
-    return !!(await this.repository
+    const serviceOrders = await this.repository
       .createQueryBuilder('service_order')
       .innerJoinAndSelect('service_order.provider', 'barber')
       .where('barber.id = :id', { id })
       .andWhere(
-        `:initial_service_time_provided  >= service_order.initial_service_time `,
-        { initial_service_time_provided: data.initial_service_time },
-      )
-      .andWhere(
-        `:initial_service_time_provided <= service_order.final_service_time`,
+        `(:initial_service_time_provided  >= service_order.initial_service_time)
+        AND (:initial_service_time_provided <= service_order.final_service_time)`,
         { initial_service_time_provided: data.initial_service_time },
       )
       .andWhere("service_order.status = 'pending'", { status: data.status })
-      .getMany());
+      .getMany();
+
+    return serviceOrders.length > 0;
   }
 }

@@ -14,9 +14,6 @@ const errorsHandler = (
     });
   }
 
-  // eslint-disable-next-line no-console
-  console.error(error);
-
   return response.status(500).json({
     status: 'error',
     message: 'Internal Server Error',

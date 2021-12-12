@@ -6,12 +6,22 @@ import { CreatePackageService } from '../../../services/CreatePackageService';
 import { DeletePackageService } from '../../../services/DeletePackageService';
 import { Package } from '../../typeorm/entities/Package';
 import { UpdatePackageService } from '../../../services/UpdatePackageService';
+import { OfferedServicesService } from '../../../services/OfferedServicesService';
 
 class PackagesController {
   async list(request: Request, response: Response): Promise<Response> {
     const barberId = +request.params.id;
     const PackageService = container.resolve(ListPackagesService);
     return response.json(await PackageService.execute(barberId));
+  }
+
+  async offeredServices(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const barberId = +request.params.id;
+    const offeredServicesService = container.resolve(OfferedServicesService);
+    return response.json(await offeredServicesService.execute(barberId));
   }
 
   async create(request: Request, response: Response): Promise<Response> {

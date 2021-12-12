@@ -14,7 +14,7 @@ ServiceOrdersRoutes.post(
 );
 
 ServiceOrdersRoutes.get(
-  '/byProvider',
+  '/byProvider/:id',
   ensureAuthenticatedMiddleware,
   ServiceOrdersController.listServiceOrdersByProvider,
 );
@@ -23,6 +23,18 @@ ServiceOrdersRoutes.get(
   '/byRequested',
   ensureAuthenticatedMiddleware,
   ServiceOrdersController.listServiceOrdersByRequested,
+);
+
+ServiceOrdersRoutes.put(
+  '/:id/confirm',
+  ensureAuthenticatedMiddleware,
+  ServiceOrdersController.confirmStatus,
+);
+
+ServiceOrdersRoutes.put(
+  '/:id/cancel',
+  ensureAuthenticatedMiddleware,
+  ServiceOrdersController.cancelStatus,
 );
 
 export { ServiceOrdersRoutes };

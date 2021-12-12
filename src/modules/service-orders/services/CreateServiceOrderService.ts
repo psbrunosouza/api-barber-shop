@@ -21,6 +21,7 @@ export default class CreateServiceOrdersService {
       requested: {
         id: requestedId,
       } as User,
+      status: 'pending',
     });
   }
 }

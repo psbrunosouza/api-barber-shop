@@ -38,4 +38,11 @@ PackagesRoutes.delete(
   PackagesController.delete,
 );
 
+PackagesRoutes.get(
+  '/barbers/:id/offered_service',
+  ensureAuthenticatedMiddleware,
+  PermissionsMiddleware,
+  PackagesController.offeredServices,
+);
+
 export { PackagesRoutes };

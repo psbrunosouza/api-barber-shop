@@ -8,7 +8,7 @@ export interface IServiceOrderRepository {
   findByOwner(id: number): Promise<IServiceOrderDTO | undefined>;
   update(id: number, data: IServiceOrderDTO): Promise<void>;
   listByRequested(id: number): Promise<IServiceOrderDTO[]>;
-  listByProvider(id: number): Promise<IServiceOrderDTO[]>;
+  listByProvider(id: number, query?: string): Promise<IServiceOrderDTO[]>;
   validateServiceTime(id: number, data: IServiceOrderDTO): Promise<boolean>;
   validateServiceAtSameTime(
     id: number,
