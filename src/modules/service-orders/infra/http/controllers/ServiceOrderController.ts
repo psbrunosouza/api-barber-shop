@@ -6,6 +6,8 @@ import ListServiceOrdersByRequestedService from '../../../services/ListServiceOr
 import ValidateServiceTimeService from '../../../services/ValidateServiceTimeService';
 import AppError from '../../../../../shared/errors/AppError';
 import ValidateServiceAtSameTimeService from '../../../services/ValidateServiceAtSameTimeService';
+import ConfirmAttendanceService from '../../../services/ConfirmAttendanceService';
+import CancelAttendanceService from '../../../services/CancelAttendanceService';
 
 class ServiceOrdersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -65,6 +67,24 @@ class ServiceOrdersController {
       status as string,
     );
     return response.json(serviceOrders);
+  }
+
+  async confirmStatus(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const confirmAttendanceService = container.resolve(
+      ConfirmAttendanceService,
+    );
+
+    return response.json(await confirmAttendanceService.execute(+id));
+  }
+
+  async cancelStatus(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const cancelAttendanceService = container.resolve(CancelAttendanceService);
+
+    return response.json(await cancelAttendanceService.execute(+id));
   }
 }
 
